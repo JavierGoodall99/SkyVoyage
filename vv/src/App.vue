@@ -1,11 +1,24 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <NavBarVue></NavBarVue>
+<body>
   <router-view/>
+</body>
+<FooterVue></FooterVue>
 </template>
 
+<script>
+import NavBarVue from './components/NavBar.vue';
+import FooterVue from './components/Footer.vue';
+
+
+export default {
+components:{
+  NavBarVue,
+  FooterVue,
+}
+}
+
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
