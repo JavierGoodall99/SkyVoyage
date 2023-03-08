@@ -163,7 +163,7 @@ class User {
     // SQL query to delete a user record based on their ID
     const loginQRY = `
     DELETE FROM Users
-    WHERE userID = ?;
+    WHERE ID = ?;
     `;
     // Execute the query using the ID parameter passed in the request
     database.query(loginQRY, [req.params.id], (err) => {
