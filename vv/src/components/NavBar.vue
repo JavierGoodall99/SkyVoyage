@@ -37,15 +37,21 @@ export default {
 }
 </script>
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
 .nav-item {
-    padding: 20px;
+  font-family: 'Concert One', cursive;
+  /* word-spacing: 1rem; */
+  letter-spacing: 0.1rem;
+  padding: 20px;
+  font-size: larger;
 }
 .navbar {
-    background-color:black;
+    background-color: #0072ff;
 }
 
 nav a {
   color: white;
+  text-decoration: none;
 }
 
 nav a.router-link-exact-active {
