@@ -1,56 +1,112 @@
 <template lang="">
-  <body class="background">
+  <body class="color">
     <div>
-      <img src="https://i.postimg.cc/VNSRJnww/output-onlinegiftools.gif" alt="" class="loop-animation">
-      <!-- <h1>Book your Flight and Make a Difference</h1> -->
+      <img srcset="
+      https://i.postimg.cc/B68jg3qP/Experience-the-world-while-making-an-impact-on-lives-2.png, https://i.postimg.cc/B68jg3qP/Experience-the-world-while-making-an-impact-on-lives-2-2x.png 2x" alt="" class="bg">
     </div>
-    <!-- <img src="https://i.postimg.cc/bdX0n9SW/2207-w046-n005-217b-p1-217.png" alt="" class="clean"> -->
+    <div>
+      <h1 class="how">How it works</h1>
+      <div class="card">
+        <h3>1.<br>Login</h3> 
+        <p class="text-white">Tell us about yourself</p>
+      </div>
+      <div class="card">
+        <h3>2.<br>Browse</h3>
+        <p class="text-white">View all of our volunteer programs</p>
+        <img src="https://i.postimg.cc/cJ9b2rjH/7732609-5236.jpg" alt="" class="logo2">
+      </div>
+      <div class="card">
+        <h3>3.<br>Book</h3>
+        <p class="text-white">Choose the country based on where the program is located</p>
+      </div>
+      <div class="card">
+        <h3>4.<br>Checkout</h3>
+        <p class="text-white">Purchase your flight ticket</p>
+      </div>
+    </div>
   </body>
 </template>
+
 <script>
 export default {
 
 }
 </script>
+
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
 
-
-h1 {
-  font-size: 6rem;
-  font-family: 'Concert One', cursive;
-  color: black;
+body{
+  font-family: 'Black Mango Medium';
 }
-.background{
-  height: 100vh; 
-  width: 100%; 
-  background: linear-gradient(to bottom, #0072ff, #ffffff);
-  overflow: hidden;
+.bg{
+  width: 100%;
+  height: 100vh;
 }
 
-.clean{
-  /* width: 100% ; */
-  padding-right: 250px;
-  /* height: 350px; */
-    /* filter: brightness(0) invert(1); */
-    /* width: 200px;
-    height: 200px; */
-    /* you need to match the shadow color to your background or image border for the desired effect*/
-    /* box-shadow: 8px 8px 8px 8px white inset; */
+
+@font-face {
+  font-family: 'Black Mango Medium';
+  src: url('../assets/font/fonts.ttf');
 }
 
-.loop-animation {
-  animation: loop 10s linear infinite;
+h1{
+  font-size: 2rem;
+  color: rgb(0, 0, 0);
+  font-family: Black Mango Medium;
+}
+
+.color{
+  background: radial-gradient(circle, rgba(248,248,248,1) 0%,  rgb(11, 36, 69)100%);
+}
+
+.how{
+  font-size: 5rem;
+  padding-top: 100px;
+  color: rgb(27, 61, 102);
+}
+
+
+@media screen and (max-width: 300px) {
+  .im {
+    /* max-width: 100%; */
+    object-fit: cover;
+  }
+}
+
+
+
+/* -------------------------------------------------------CARDS-------------------------------------------------------------- */
+
+.card {
+  display: inline-block;
   width: 300px;
-  /* filter: brightness(0) invert(1); */
+  height: 400px;
+  background-color: #6e91b3;
+  border-radius: 16px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  margin: 30px;
+  vertical-align: top;
+  box-sizing: border-box;
+  transition: transform 0.3s ease-in-out;
 }
 
-@keyframes loop {
-  0% {
-    transform: translateX(-300%);
-  }
-  100% {
-    transform: translateX(350%);
-  }
+.card:hover {
+  transform: translateY(-10px);
+}
+p{
+  word-spacing: 0.4rem;
+}
+
+h3{
+  font-size: 2.5rem;
+  font-family: 'Black Mango Medium';
+  padding-top: 30px;
+  color: rgb(255, 255, 255);
+}
+
+.logo2{
+  width: 280px;
+  border-radius: 20px;
 }
 </style>

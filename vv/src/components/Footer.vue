@@ -1,4 +1,17 @@
-<template>
+<template lang="">
+  <div>
+    
+  </div>
+</template>
+<script>
+export default {
+  
+}
+</script>
+<style lang="">
+  
+</style>
+<!-- <template>
     <footer>
       <div class="container">
           <p>Made by Javier Goodall</p>  
@@ -29,5 +42,5 @@
         width: 100%;
       }
     }
-  </style>
+  </style> -->
     
