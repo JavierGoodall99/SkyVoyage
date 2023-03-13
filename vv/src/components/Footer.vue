@@ -1,15 +1,23 @@
-<template lang="">
+<template>
   <div>
-    
+    <!-- <footer class="footer">
+    </footer> -->
   </div>
 </template>
-<script>
-export default {
-  
-}
-</script>
-<style lang="">
-  
+
+<style scoped>
+/* .footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #122d45;
+  text-align: center;
+  height: 150px;
+  padding: 20px;
+  font-size: 14px;
+  color: #333;
+} */
 </style>
 <!-- <template>
     <footer>
