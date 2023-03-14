@@ -29,7 +29,8 @@ const routes = [
   },
   {
     path: '/programs',
-    component: () => import('../views/ProgramsView.vue')
+    name: 'programs',
+    component: import('../views/ProgramsView.vue')
   },
   {
     path: '/admin',

@@ -26,7 +26,18 @@ export default createStore({
       } else {
         context.commit('setMessage', err)
       }
+    },
+  async login (context, payload) {
+    console.log(payload);
+    const res = await axios.post(`${bStoreURL}login`, payload)
+    const { result, err, msg } = await res.data
+    if (result) {
+      context.commit('setUser', result)
+      context.commit('setMessage', msg)
+    } else {
+      context.commit('setMessage', err)
     }
+  }
   },
 
   getters: {
