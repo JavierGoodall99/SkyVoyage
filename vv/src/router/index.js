@@ -23,11 +23,23 @@ const routes = [
     component: import('../views/RegistrationView.vue')
   },
   {
+    path: '/login',
+    name: 'login',
+    component: import('../views/LoginView.vue')
+  },
+  {
     path: '/programs',
-    name: 'programs',
-    component: import('../views/ProgramsView.vue')
-  }
+    component: () => import('../views/ProgramsView.vue')
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: import('../views/AdminView.vue')
+  },
 ]
+
+
+
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

@@ -23,7 +23,7 @@
             <router-link to="/flights">Flights</router-link> 
         </li>
         <li class="nav-item">
-            <router-link to="/registration">Login</router-link> 
+            <router-link to="/registration">Apply</router-link> 
         </li>
         <li class="nav-item">
             <router-link to="/admin">Admin</router-link> 
