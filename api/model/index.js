@@ -183,7 +183,7 @@ class Program {
   // Fetch all products
   retrievePrograms(req, res) {
     const loginQRY = `SELECT ID, ProgramName, Location, 
-        Period, ProgramDescription
+        Period, ProgramDescription, imgURL
         FROM VolunteerPrograms;`;
     // Run the SQL query
     database.query(loginQRY, (err, results) => {
@@ -195,7 +195,7 @@ class Program {
   // Fetch a specific product using the program id
   retrieveProgram(req, res) {
     const loginQRY = `SELECT ID, ProgramName, Location, 
-    Period, ProgramDescription
+    Period, ProgramDescription, imgURL
     FROM VolunteerPrograms
         WHERE ID = ?;`;
     // Run the SQL query with a parameterized query
