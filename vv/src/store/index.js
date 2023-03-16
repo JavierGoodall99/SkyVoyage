@@ -18,18 +18,23 @@ export default createStore({
     setPrograms (state, programs) {
       state.programs = programs;
     },
-    addProduct(state, payload) {
-      state.products.push(payload);
+    addProgram(state, programs) {
+      state.programs = programs;
     },
-    updateProduct(state, payload) {
-      const index = state.products.findIndex(product => product.id === payload.id);
-      state.products[index] = payload;
+    updateProgram(state, payload) {
+      state.programs = state.programs.map(program => {
+        if (program.id === payload.id) {
+          return payload;
+        }
+        return program;
+      });
     },
-    deleteProduct(state, payload) {
-      const index = state.products.findIndex(product => product.id === payload.id);
-      state.products.splice(index, 1);
-    }
-},
+    
+    
+    deleteProgram(state, id) {
+      state.programs = state.programs.filter(program => program.id !== id);
+    },
+  },
   actions: {
     async register (context, payload) {
       console.log(payload);
@@ -62,35 +67,48 @@ export default createStore({
         context.commit('setMessage', err || msg)
       }
     },
-    async addProduct(context) {
-      const res = await axios.post(`${bStoreURL}program`);
-      const { results, err, msg } = await res.data;
-      if(results) {
-        context.commit('setPrograms', results)
-      }else {
-        context.commit('setMessage', err || msg)
+    async addProgram(context, payload) {
+      const res = await axios.post(`${bStoreURL}program`, payload);
+      const { result, err, msg } = await res.data;
+      if (result) {
+        context.commit('updateProgram', result);
+        context.commit('setMessage', msg)
+      } else {
+        context.commit('setMessage', err)
       }
     },
-    async updateProduct(context) {
-      const res = await axios.put(`${bStoreURL}program/:id`);
-      const { results, err, msg } = await res.data;
-      if(results) {
-        context.commit('setPrograms', results)
-      }else {
-        context.commit('setMessage', err || msg)
+    async updateProgram(context, payload) {
+      try {
+        const res = await axios.put(`${bStoreURL}program/${payload.ID}`, payload);
+        const { result, err, msg } = await res.data;
+        if (result) {
+          context.commit('updateProgram', result);
+          context.commit('setMessage', msg)
+        } else {
+          context.commit('setMessage', err)
+        }
+      } catch (error) {
+        console.error(error);
+        context.commit('setMessage', 'Error updating program');
       }
     },
-    async deleteProduct(context) {
-      const res = await axios.delete(`${bStoreURL}program/:id`);
-      const { results, err, msg } = await res.data;
-      if(results) {
-        context.commit('setPrograms', results)
-      }else {
-        context.commit('setMessage', err || msg)
+    
+    async deleteProgram(context, id) {
+      try {
+        const res = await axios.delete(`${bStoreURL}program/${id}`);
+        const { result, err, msg } = await res.data;
+        if (result) {
+          context.commit('deleteProgram', id);
+          context.commit('setMessage', msg);
+          window.location.reload(); 
+        } else {
+          context.commit('setMessage', err)
+        }
+      } catch (err) {
+        context.commit('setMessage', err.message);
       }
-    }
     },
-
+  },
   getters: {
     getUser: state => state.user,
     getMessage: state => state.message,
