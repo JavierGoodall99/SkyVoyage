@@ -4,6 +4,7 @@ const bStoreURL = 'https://volunteerventures.onrender.com/'
 
 export default createStore({
   state: {
+    // isLoggedIn: false,
     user: null,
     message: null,
     programs: []
@@ -18,6 +19,9 @@ export default createStore({
     setPrograms (state, programs) {
       state.programs = programs;
     },
+    setProgram (state, program) {
+      state.program = program;
+    },
     addProgram(state, programs) {
       state.programs = programs;
     },
@@ -29,8 +33,6 @@ export default createStore({
         return program;
       });
     },
-    
-    
     deleteProgram(state, id) {
       state.programs = state.programs.filter(program => program.id !== id);
     },
@@ -65,6 +67,14 @@ export default createStore({
         context.commit('setPrograms', results)
       }else {
         context.commit('setMessage', err || msg)
+      }
+    },
+    async fetchProgram(context, id) {
+      const res = await axios.get(`${bStoreURL}program/${id}`);
+      const { results } = await res.data;
+      if(results) {
+        console.log(results[0])
+        context.commit('setProgram', results[0]);
       }
     },
     async addProgram(context, payload) {
@@ -113,11 +123,14 @@ export default createStore({
     getUser: state => state.user,
     getMessage: state => state.message,
     getPrograms: state => state.programs,
+    authenticated(state) {
+      return state.user !== null;
+    },
     getProductById: state => id => {
       return state.products.find(product => product.id === id);
     }
   }
-  })
+  });
 
 
 // export default {

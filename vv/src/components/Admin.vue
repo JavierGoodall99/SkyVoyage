@@ -9,7 +9,8 @@
           <th>Period</th>
           <th>Program Description</th>
           <th>Image URL</th>
-          <th>Actions</th>
+          <th><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            @click="showAddModal">Add Program</button></th>
         </tr>
       </thead>
       <tbody>
@@ -18,7 +19,7 @@
           <td>{{ program.Location }}</td>
           <td>{{ program.Period }}</td>
           <td>{{ program.ProgramDescription }}</td>
-          <td>{{ program.imgURL }}</td>
+          <td><img :src="program.imgURL" /></td>
           <td>
             <button @click="showEditModal(program)">Edit</button>
             <button @click="deleteProgram(program)">Delete</button>
@@ -69,9 +70,6 @@
         </div>
       </div>
     </div>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-      @click="showAddModal">Add Program</button>
-
   </div>
 </template>
 
@@ -159,6 +157,7 @@ export default {
   this.$store.dispatch("updateProgram", program.ID).then(() => {
       // handle success
       console.log("Program updated successfully");
+      window.location.reload();
     })
     .catch(err => {
       // handle error
@@ -174,6 +173,9 @@ export default {
 
 
 <style scoped>
+img {
+  width: 250px;
+}
 h1 {
   text-align: center;
   font-size: 3rem;

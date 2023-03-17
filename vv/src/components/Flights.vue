@@ -14,11 +14,11 @@
             <label for="departure-date">Departure Date</label>
             <input type="date" id="departure-date">
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="return-date">Return Date</label>
             <input type="date" id="return-date">
-        </div>
-        <div class="form-group">
+        </div> -->
+        <!-- <div class="form-group">
             <label for="passengers">Passengers</label>
             <select id="passengers">
                 <option value="1">1 Passenger</option>
@@ -27,7 +27,7 @@
                 <option value="4">4 Passengers</option>
                 <option value="5">5 Passengers</option>
             </select>
-        </div>
+        </div> -->
         <button type="submit">Search</button>
     </form>
     <div>
