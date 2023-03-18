@@ -6,10 +6,14 @@ export default createStore({
   state: {
     user: null,
     message: null,
+    loading: false,
     programs: [],
     flights: []
   },
   mutations: {
+    setLoading(state, loading) { 
+      state.loading = loading;
+    },
     setUser (state, payload) {
       state.user = payload
     },
@@ -83,6 +87,7 @@ export default createStore({
     } else {
       context.commit('setMessage', err)
     }
+    context.commit('setLoading', false);
   },
 
 
