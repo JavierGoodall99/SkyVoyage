@@ -86,6 +86,8 @@ export default {
                     'Registration successful',
                     'You can now login to your account',
                 );
+                // Redirect the user to the program page on successful login
+                this.$router.push('/programs');
             } catch (error) {
                 console.log(error.message);
             }
@@ -222,7 +224,8 @@ span a:hover {
         max-width: 420px;
         width: 100%;
     }
-}</style>
+}
+</style>
     
     <!-- https://www.divinectorweb.com/2023/02/login-and-signup-form-switch-javascript.html -->
 

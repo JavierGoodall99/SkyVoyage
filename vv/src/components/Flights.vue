@@ -1,46 +1,73 @@
-<template lang="">  
-<body>
-    <h2>Flight Booking</h2>
-    <form class="flight-form">
-        <div class="form-group">
-            <label for="departure">Departure</label>
-            <input type="text" id="departure" placeholder="City or airport">
-        </div>
-        <div class="form-group">
-            <label for="destination">Destination</label>
-            <input type="text" id="destination" placeholder="City or airport">
-        </div>
-        <div class="form-group">
-            <label for="departure-date">Departure Date</label>
-            <input type="date" id="departure-date">
-        </div>
-        <!-- <div class="form-group">
-            <label for="return-date">Return Date</label>
-            <input type="date" id="return-date">
-        </div> -->
-        <!-- <div class="form-group">
-            <label for="passengers">Passengers</label>
-            <select id="passengers">
-                <option value="1">1 Passenger</option>
-                <option value="2">2 Passengers</option>
-                <option value="3">3 Passengers</option>
-                <option value="4">4 Passengers</option>
-                <option value="5">5 Passengers</option>
-            </select>
-        </div> -->
-        <button type="submit">Search</button>
-    </form>
+<template>  
+  <body>
     <div>
-        <img src="https://i.postimg.cc/VNSRJnww/output-onlinegiftools.gif" alt="" class="loop-animation">
+      <h2>Flight Booking</h2>
+      <form class="flight-form">
+        <div class="form-group">
+          <label for="departure">Departure</label>
+          <select v-model="selectedDepartureCity">
+            <option value="">From:</option>
+            <option v-for="DepartureCity in DepartureCities" :key="DepartureCity">{{ DepartureCity }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="destination">Destination</label>
+          <select v-model="selectedArrivalCity">
+            <option value="">From:</option>
+            <option v-for="ArrivalCity in ArrivalCities" :key="ArrivalCity">{{ ArrivalCity }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="departure-date">Departure Date</label>
+          <input type="date" id="departure-date">
+        </div>
+        <!-- <router-link :to="{ name: 'flight', params: { id: flight.ID } }">
+            <button class="view-more-button">Explore</button>
+          </router-link> -->
+      </form>
     </div>
-</body>
+    <div>
+      <img src="https://i.postimg.cc/VNSRJnww/output-onlinegiftools.gif" alt="" class="loop-animation">
+    </div>
+  </body>
 </template>
 
 <script>
-  export default {
-  
-  }
-  </script>
+export default {
+  data() {
+    return {
+      selectedDepartureCity: '',
+      selectedArrivalCity: ''
+    };
+  },
+  computed: {
+    // Get the list of flights from the Vuex store
+    flights() {
+      return this.$store.state.flights;
+    },
+    // Get a list of unique departure cities from the flights
+    DepartureCities() {
+      const DepartureCities = new Set();
+      for (const flight of this.flights) {
+        DepartureCities.add(flight.DepartureCity);
+      }
+      return Array.from(DepartureCities);
+    },
+    ArrivalCities() {
+      const ArrivalCities = new Set();
+      for (const flight of this.flights) {
+        ArrivalCities.add(flight.ArrivalCity);
+      }
+      return Array.from(ArrivalCities);
+    },
+  },
+  created() {
+    // Fetch the list of flights from the Vuex store
+    this.$store.dispatch('fetchFlights');
+  },
+};
+</script>
+
   
   <style scoped>
 
@@ -70,19 +97,22 @@ h2{
   margin-bottom: 20px;
 }
 
-.form-group label {
+/* .form-group label {
   display: block;
   margin-bottom: 5px;
+  font-weight: bolder;
+} */
+
+.form-group label {
   font-weight: bold;
 }
-
-.form-group input,
-.form-group select {
+.form-group input, .form-group select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
+  font-weight: bold;
 }
 
 button[type="submit"] {

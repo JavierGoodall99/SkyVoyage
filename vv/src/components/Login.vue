@@ -18,7 +18,8 @@
                             </div>
                         </form>
                         <div class="login fw-bold text-black">
-                            <span>Don't have an account? <a href="#"><router-link to="/registration">Register</router-link> </a></span>
+                            <span>Don't have an account? <a href="#"><router-link to="/registration">Register</router-link>
+                                </a></span>
                         </div>
                     </div>
                 </div>
@@ -55,6 +56,8 @@ export default {
                     'Success',
                     'Login successful',
                 );
+                // Redirect the user to the program page on successful login
+                this.$router.push('/programs');
             } catch (error) {
                 console.log(error.message);
             }
@@ -185,6 +188,7 @@ span a:hover {
         max-width: 420px;
         width: 100%;
     }
-}</style>
+}
+</style>
         
         <!-- https://www.divinectorweb.com/2023/02/login-and-signup-form-switch-javascript.html -->

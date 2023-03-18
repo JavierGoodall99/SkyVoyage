@@ -9,8 +9,8 @@
         <option v-for="location in locations" :key="location">{{ location }}</option>
       </select>
       <!-- SORT BY -->
-      <label for="location" class="px-3">Filter by alphabetical order:</label>
-      <button class="sort-button mx-3" @click="toggleSortOrder">Sort by {{ sortOrder }}</button>
+      <label for="location" class="px-3">Sort by:</label>
+      <button class="sort-button mx-3" @click="toggleSortOrder">Program Name {{ sortOrder }}</button>
       <!-- SEARCH -->
       <label for="search" class="px-3">Search:</label>
       <input id="search" v-model="searchQuery" type="text" placeholder="Search programs...">
@@ -39,14 +39,18 @@
 
 <script>
 import { mapGetters } from 'vuex';
+
 export default {
   computed: {
+    // Map the 'authenticated' getter from Vuex store to a computed property
     ...mapGetters(['authenticated']),
+    
     // Get the list of programs from the Vuex store
     programs() {
       return this.$store.state.programs;
     },
-    // Get a list of locations from the programs
+    
+    // Get a list of unique locations from the programs
     locations() {
       const locations = new Set();
       for (const program of this.programs) {
@@ -54,23 +58,25 @@ export default {
       }
       return Array.from(locations);
     },
-    // Filter the programs by the selected location and search by program name
+    
+    // Filter the programs by the selected location and search query
     filteredPrograms() {
       let filtered = this.programs;
 
+      // If a location is selected, filter by that location
       if (this.selectedLocation) {
         filtered = filtered.filter(program => program.Location === this.selectedLocation);
       }
-
+      
+      // If a search query is entered, filter by program name
       if (this.searchQuery) {
         const query = this.searchQuery.toLowerCase();
         filtered = filtered.filter(program => program.ProgramName.toLowerCase().includes(query));
       }
-
       return filtered;
     },
 
-    // Sort the filtered programs by program name, either ascending or descending
+    // Sort the filtered programs by program name
     sortedPrograms() {
       const sorted = [...this.filteredPrograms].sort((a, b) => {
         if (a.ProgramName < b.ProgramName) {
@@ -84,14 +90,10 @@ export default {
       return sorted;
     },
   },
-  // authenticated() {
-  //     // Replace this with your authentication logic
-  //     return false;
-  //   },
   data() {
     return {
       selectedLocation: '',
-      sortOrder: 'ascending',
+      sortOrder: '(ascending)',
       searchQuery: '',
     };
   },
@@ -119,14 +121,6 @@ export default {
   box-sizing: border-box;
   font-family: 'Black Mango Medium';
 }
-
-
-/* body {
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
-    background: radial-gradient(circle, rgba(248,248,248,1) 0%, rgb(193, 210, 232) 100%);
-  } */
 
 .bg {
   background: radial-gradient(circle, rgba(248, 248, 248, 1) 0%, rgb(193, 210, 232)100%);

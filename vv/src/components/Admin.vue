@@ -1,25 +1,25 @@
 <template>
-  <div>
+  <div class="body">
     <h1>Programs</h1>
-    <table>
+    <table class="table">
       <thead>
-        <tr>
+        <tr class="program">
           <th>Program Name</th>
           <th>Location</th>
           <th>Period</th>
           <th>Program Description</th>
           <th>Image URL</th>
           <th><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-            @click="showAddModal">Add Program</button></th>
+              @click="showAddModal">Add Program</button></th>
         </tr>
       </thead>
       <tbody>
         <tr class="program" v-for="program in programs" :key="program.id">
-          <td>{{ program.ProgramName }}</td>
-          <td>{{ program.Location }}</td>
-          <td>{{ program.Period }}</td>
-          <td>{{ program.ProgramDescription }}</td>
-          <td><img :src="program.imgURL" /></td>
+          <td data-label="Program Name">{{ program.ProgramName }}</td>
+          <td data-label="Location">{{ program.Location }}</td>
+          <td data-label="Period">{{ program.Period }}</td>
+          <td data-label="Program Description">{{ program.ProgramDescription }}</td>
+          <td data-label="Image URL"><img :src="program.imgURL" /></td>
           <td>
             <button @click="showEditModal(program)">Edit</button>
             <button @click="deleteProgram(program)">Delete</button>
@@ -27,6 +27,7 @@
         </tr>
       </tbody>
     </table>
+    
     <!-- Add Program Modal -->
     <div class="modal" tabindex="-1" role="dialog" :class="{ 'd-block': showModal }">
       <div class="modal-dialog" role="document">
@@ -61,7 +62,7 @@
               </div>
               <div class="modal-footer" v-for="program in programs" :key="program.id">
                 <button v-if="!editingProgram" @click="showModal()">Add</button>
-                <button  @click="updateProgram(program)">Edit</button>
+                <button @click="updateProgram(program)">Edit</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                   @click="cancelForm">Cancel</button>
               </div>
@@ -81,9 +82,9 @@ export default {
     }
   },
   data() {
-  return {
-    showModal: false,
-    editingProgram: false, // new property
+    return {
+      showModal: false,
+      editingProgram: false, // new property
       modalTitle: "",
       modalAction: "",
       form: {
@@ -117,7 +118,7 @@ export default {
       this.modalAction = "Update";
       this.form = { ...program };
       this.editingProgram = true; // set editingProgram to true when editing
-      this.showModal = true;  
+      this.showModal = true;
     },
 
     submitForm() {
@@ -154,28 +155,39 @@ export default {
     updateProgram(program) {
       console.log('Program: ', program.ID);
       if (program.ID) {
-  this.$store.dispatch("updateProgram", program.ID).then(() => {
-      // handle success
-      console.log("Program updated successfully");
-      window.location.reload();
-    })
-    .catch(err => {
-      // handle error
-      console.error(err);
-    });
-  } else {
-          console.error("Invalid program ID");
-        }
+        this.$store.dispatch("updateProgram", program.ID).then(() => {
+          // handle success
+          console.log("Program updated successfully");
+          window.location.reload();
+        })
+          .catch(err => {
+            // handle error
+            console.error(err);
+          });
+      } else {
+        console.error("Invalid program ID");
       }
     }
-    }
+  }
+}
 </script>
 
 
 <style scoped>
+
+.body{
+	margin:0;
+	padding:20px;
+	font-family: sans-serif;
+}
+
+*{
+	box-sizing: border-box;
+}
 img {
   width: 250px;
 }
+
 h1 {
   text-align: center;
   font-size: 3rem;
@@ -183,29 +195,28 @@ h1 {
   margin: 2rem;
 }
 
-table {
+.table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 2rem;
 }
 
-th,
-td {
-  text-align: left;
-  padding: 1rem;
-  border-bottom: 1px solid #ddd;
+.table td, .table th {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 16px;
 }
 
-th {
+.table th {
   background-color: #f8f8f8;
   font-size: 1.2rem;
   font-weight: bold;
   color: #555;
 }
 
-td {
-  font-size: 1rem;
-  color: #333;
+.table tbody .program:nth-child(even){
+	background-color: #f5f5f5;
 }
 
 button {
@@ -228,4 +239,39 @@ button:hover {
 
 .program:hover {
   background-color: #f2f2f2;
-}</style>
+}
+
+@media(max-width: 700px){
+	.table thead{
+		display: none;
+	}
+
+	.table, .table tbody, .table .program, .table td{
+		display: block;
+		width: 100%;
+	}
+	.table .program{
+		margin-bottom:15px;
+	}
+	.table td{
+		text-align: right;
+		/* padding-left: 50%; */
+		text-align: right;
+		position: relative;
+    width: 100%;
+	}
+  .table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: left;
+}
+  img {
+  width: 50px;
+}
+}
+</style>
