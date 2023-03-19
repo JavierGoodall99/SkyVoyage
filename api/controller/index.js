@@ -80,19 +80,19 @@ route.get("/flights", (req, res) => {
     flights.retrieveFlights(req, res);
   });
   // Fetch single flights route
-  route.get("/flights/:id", (req, res) => {
+  route.get("/flight/:id", (req, res) => {
     flights.retrieveFlight(req, res);
   });
   // Create flights route
-  route.post("/flights", bodyParser.json(), (req, res) => {
+  route.post("/flight", bodyParser.json(), (req, res) => {
     flights.addFlight(req, res);
   });
   // Update flights route
-  route.put("/flights/:id", bodyParser.json(), (req, res) => {
+  route.put("/flight/:id", bodyParser.json(), (req, res) => {
     flights.updateFlight(req, res);
   });
   // Delete flights route
-  route.delete("/flights/:id", (req, res) => {
+  route.delete("/flight/:id", (req, res) => {
     flights.deleteFlight(req, res);
   });
 
