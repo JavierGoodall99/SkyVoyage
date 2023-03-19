@@ -18,7 +18,7 @@ class User {
 
     // Construct a SQL query to select the user from the database
     const loginQRY = `
-      SELECT FirstName, LastName, Email, UserPassword, Address, PhoneNumber, userRole
+      SELECT ID, FirstName, LastName, Email, UserPassword, Address, PhoneNumber, userRole
       FROM Users
       WHERE Email = '${Email}';
     `;
@@ -70,7 +70,7 @@ class User {
   retrieveUsers(req, res) {
     // SQL query to select all users
     const loginQRY = `
-        SELECT FirstName, LastName, Email, UserPassword, Address, PhoneNumber, userRole
+        SELECT ID, FirstName, LastName, Email, UserPassword, Address, PhoneNumber, userRole
         FROM Users
       `;
 
