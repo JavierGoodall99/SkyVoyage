@@ -2,7 +2,8 @@
   <body>
     <div>
       <img srcset="
-      https://i.postimg.cc/B68jg3qP/Experience-the-world-while-making-an-impact-on-lives-2.png, https://i.postimg.cc/B68jg3qP/Experience-the-world-while-making-an-impact-on-lives-2-2x.png 2x" alt="" class="bg">
+      https://i.postimg.cc/B68jg3qP/Experience-the-world-while-making-an-impact-on-lives-2.png, 
+      https://i.postimg.cc/B68jg3qP/Experience-the-world-while-making-an-impact-on-lives-2-2x.png 2x" alt="" class="bg">
     </div>
     <h1 class="title">Welcome</h1>
     <div class="welcome">

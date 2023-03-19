@@ -42,7 +42,7 @@
 
 
     <h2 class="Our">Our Work</h2>
-    <div class="glide">
+    <div class="glide" id="glide1">
         <div class="glide__track" data-glide-el="track">
           <ul class="glide__slides">
             <img src="https://i.postimg.cc/TwcG9vSQ/pexels-rodnae-productions-6646989.jpg" alt="" class="slide">
@@ -53,32 +53,67 @@
             <img src="https://i.postimg.cc/JzF14BsL/pexels-ron-lach-9037222.jpg" alt="" class="slide">
           </ul>
         </div>
-        <div class="glide__arrows" data-glide-el="controls">
+        <!-- <div class="glide__arrows" data-glide-el="controls">
           <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
           <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
+        </div> -->
+      </div>
+
+      <div class="glide" id="glide2">
+        <div class="glide__track" data-glide-el="track">
+          <ul class="glide__slides">
+            <img src="https://i.postimg.cc/BbTG9Rcz/teacher-helping-kids-class.jpg" alt="" class="slide">
+            <img src="https://i.postimg.cc/NGmtHrqx/environment-volunteer-concept.jpg" alt="" class="slide">
+            <img src="https://i.postimg.cc/gjq1B8GF/hands-plant-young-green-sprout-tree-three-volunteers.jpg" alt="" class="slide">
+            <img src="https://i.postimg.cc/BnvRMjyk/volunteer-collecting-donation-box-from-another-volunteer.jpg" alt="" class="slide">
+            <img src="https://i.postimg.cc/gksfVVM3/volunteers-collecting-trash.jpg" alt="" class="slide">
+            <img src="https://i.postimg.cc/JzF14BsL/pexels-ron-lach-9037222.jpg" alt="" class="slide">
+          </ul>
         </div>
+        <!-- <div class="glide__arrows" data-glide-el="controls">
+          <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
+          <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
+        </div> -->
       </div>
 
   </body>
 </template>
 
 <script>
-  import Glide from '@glidejs/glide'
+ import Glide from '@glidejs/glide'
   
   export default {
-  mounted() {
-    new Glide('.glide', {
-      type: 'carousel',
-      startAt: 0,
-      perView: 3,
-      peek: { before: 100, after: 100 },
-      breakpoints: {
-        768: { perView: 2 },
-        576: { perView: 1 },
-      },
-    }).mount();
-  },
-};
+    mounted() {
+      new Glide('.glide', {
+        type: 'carousel',
+        startAt: 0,
+        perView: 3,
+        peek: { before: 100, after: 100 },
+        breakpoints: {
+          768: { perView: 2 },
+          576: { perView: 1 },
+        },
+        autoplay: 3000, //  3 second delay
+        animationDuration: 500, // animation duration to 500ms
+        animationTimingFunc: 'ease-out', 
+      }).mount();
+  
+      new Glide('#glide2', {
+        type: 'carousel',
+        startAt: 0,
+        perView: 3,
+        peek: { before: 100, after: 100 },
+        breakpoints: {
+          768: { perView: 2 },
+          576: { perView: 1 },
+        },
+        autoplay: 4000,
+        animationDuration: 500,
+        animationTimingFunc: 'ease-out',
+      }).mount();
+    },
+  };
+  
 </script>
 
 

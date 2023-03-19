@@ -5,6 +5,7 @@ const bStoreURL = 'https://volunteerventures.onrender.com/'
 export default createStore({
   state: {
     user: null,
+    users: null,
     message: null,
     loading: false,
     programs: [],
@@ -17,9 +18,29 @@ export default createStore({
     setUser (state, payload) {
       state.user = payload
     },
+    setUsers (state, payload) {
+      state.users = payload
+    },
     setMessage (state, payload) {
       state.message = payload
     },
+    // ---------------------User---------------------------------------
+    addUser(state, users) {
+      state.users = users;
+    },
+    updateUser(state, payload) {
+      state.users = state.users.map(user => {
+        if (user.id === payload.id) {
+          return payload;
+        }
+        return user;
+      });
+    },
+    deleteUser(state, id) {
+      state.users = state.users.filter(user => user.id !== id);
+    },
+
+    // --------------------------------Program----------------------------------
     setPrograms (state, programs) {
       state.programs = programs;
     },
@@ -41,11 +62,13 @@ export default createStore({
       state.programs = state.programs.filter(program => program.id !== id);
     },
 
+
+    // --------------------------FLIGHTS----------------------------------------------
     setFlights (state, flights) {
       state.flights = flights;
     },
     setFlight (state, flight) {
-      state.flights = flight;
+      state.flight = flight;
     },
     addFlight(state, flights) {
       state.flights = flights;
@@ -77,6 +100,7 @@ export default createStore({
         context.commit('setMessage', err)
       }
     },
+
   async login (context, payload) {
     console.log(payload);
     const res = await axios.post(`${bStoreURL}login`, payload)
@@ -89,6 +113,67 @@ export default createStore({
     }
     context.commit('setLoading', false);
   },
+
+  // --------------------------------------------USERS--------------------------------------------------------------
+  async retrieveUsers(context) {
+    const res = await axios.get(`${bStoreURL}users`);
+    const { results, err, msg } = await res.data;
+    if(results) {
+      context.commit('setUsers', results)
+    }else {
+      context.commit('setMessage', err || msg)
+    }
+  },
+  async retrieveUser(context, id) {
+    const res = await axios.get(`${bStoreURL}user/${id}`);
+    const { results } = await res.data;
+    if(results) {
+      console.log(results[0])
+      context.commit('setUser', results[0]);
+    }
+  },
+  async addUser(context, payload) {
+    const res = await axios.post(`${bStoreURL}user`, payload);
+    const { result, err, msg } = await res.data;
+    if (result) {
+      context.commit('updateUser', result);
+      context.commit('setMessage', msg)
+    } else {
+      context.commit('setMessage', err)
+    }
+  },
+  async updateUser(context, payload) {
+    try {
+      const res = await axios.put(`${bStoreURL}user/${payload.ID}`, payload);
+      const { result, err, msg } = await res.data;
+      if (result) {
+        context.commit('updateUser', result);
+        context.commit('setMessage', msg)
+      } else {
+        context.commit('setMessage', err)
+      }
+    } catch (error) {
+      console.error(error);
+      context.commit('setMessage', 'Error updating user');
+    }
+  },
+  
+  async deleteUser(context, id) {
+    try {
+      const res = await axios.delete(`${bStoreURL}user/${id}`);
+      const { result, err, msg } = await res.data;
+      if (result) {
+        context.commit('deleteUser', id);
+        context.commit('setMessage', msg);
+        // window.location.reload(); 
+      } else {
+        context.commit('setMessage', err)
+      }
+    } catch (err) {
+      context.commit('setMessage', err.message);
+    }
+  },
+
 
 
   // --------------------------------------------PROGRAMS------------------------------------------------------
@@ -165,18 +250,18 @@ export default createStore({
     }
   },
   async fetchFlight(context, id) {
-    const res = await axios.get(`${bStoreURL}flight/${id}`);
+    const res = await axios.get(`${bStoreURL}flights/${id}`);
     const { results } = await res.data;
     if(results) {
       console.log(results[0])
-      context.commit('setFlight', results[0]);
+      context.commit('setFlights', results[0]);
     }
   },
   async addFlight(context, payload) {
-    const res = await axios.post(`${bStoreURL}flight`, payload);
+    const res = await axios.post(`${bStoreURL}flights`, payload);
     const { result, err, msg } = await res.data;
     if (result) {
-      context.commit('updateProgram', result);
+      context.commit('updateFlight', result);
       context.commit('setMessage', msg)
     } else {
       context.commit('setMessage', err)
@@ -184,7 +269,7 @@ export default createStore({
   },
   async updateFlight(context, payload) {
     try {
-      const res = await axios.put(`${bStoreURL}flight/${payload.ID}`, payload);
+      const res = await axios.put(`${bStoreURL}flights/${payload.ID}`, payload);
       const { result, err, msg } = await res.data;
       if (result) {
         context.commit('updateFlight', result);
@@ -194,18 +279,18 @@ export default createStore({
       }
     } catch (error) {
       console.error(error);
-      context.commit('setMessage', 'Error updating program');
+      context.commit('setMessage', 'Error updating flight');
     }
   },
   
   async deleteFlight(context, id) {
     try {
-      const res = await axios.delete(`${bStoreURL}program/${id}`);
+      const res = await axios.delete(`${bStoreURL}flights/${id}`);
       const { result, err, msg } = await res.data;
       if (result) {
         context.commit('deleteFlight', id);
         context.commit('setMessage', msg);
-        window.location.reload(); 
+        // window.location.reload(); 
       } else {
         context.commit('setMessage', err)
       }
