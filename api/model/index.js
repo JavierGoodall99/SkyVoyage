@@ -329,7 +329,7 @@ class Flights {
       database.query(loginQRY, [req.params.id], (err) => {
         if (err) res.status(400).json({ err: "The record was not found." });
         // Return a success message if the query succeeds
-        res.status(200).json({ msg: "A Flight was deleted." });
+        res.status(200).json({ msg: "Flight was deleted." });
       });
     }
   }
