@@ -21,9 +21,9 @@
           <label for="departure-date">Departure Date</label>
           <input type="date" id="departure-date">
         </div>
-        <!-- <router-link :to="{ name: 'flight', params: { id: flight.ID } }">
-            <button class="view-more-button">Explore</button>
-          </router-link> -->
+        <div class="card" v-for="flight in flights" :key="flight.id">
+          <router-link :to="{ name: 'flight', params: { id: flight.ID } }"><button class="view-more-button">Explore</button></router-link>
+        </div>
       </form>
     </div>
     <div>

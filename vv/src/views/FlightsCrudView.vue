@@ -7,7 +7,7 @@
             <th>FirstName</th>
             <th>LastName</th>
             <th>Email</th>
-            <!-- <th>UserPassword</th> -->
+            <th>UserPassword</th>
             <th>Address</th>
             <th>PhoneNumber</th>
             <th>userRole</th>
@@ -21,7 +21,7 @@
             <td data-label="FirstName">{{ user.FirstName }}</td>
             <td data-label="LastName">{{ user.LastName }}</td>
             <td data-label="Email">{{ user.Email }}</td>
-            <!-- <td data-label="UserPassword">{{ user.UserPassword }}</td> -->
+            <td data-label="UserPassword">{{ user.UserPassword }}</td>
             <td data-label="Address">{{ user.Address }}</td>
             <td data-label="PhoneNumber">{{ user.PhoneNumber }}</td>
             <td data-label="userRole">{{ user.userRole }}</td>
@@ -56,11 +56,11 @@
                   <label for="Email" class="form-label">Email:</label>
                   <input id="Email" v-model="form.Email" required class="form-control" />
                 </div>
-                <!-- <div class="mb-3">
+                <div class="mb-3">
                   <label for="UserPassword" class="form-label">UserPassword:</label>
                   <textarea id="UserPassword" v-model="form.UserPassword" required
                     class="form-control"></textarea>
-                </div> -->
+                </div>
                 <div class="mb-3">
                   <label for="Address" class="form-label">Address:</label>
                   <textarea id="Address" v-model="form.Address" required
@@ -121,7 +121,7 @@
     methods: {
       showAddModal() {
         this.modalTitle = "Add User";
-        this.modalAction = "Add";
+        this.modalAction = "register";
         this.form = {
           FirstName: "",
           LastName: "",
@@ -144,7 +144,7 @@
   
       submitForm() {
         if (this.modalAction === "Add") {
-          this.$store.dispatch("addUser", this.form);
+          this.$store.dispatch("register", this.form);
         } else if (this.modalAction === "Update") {
           this.$store.dispatch("updateUser", this.form);
         }
