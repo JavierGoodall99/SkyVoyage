@@ -233,7 +233,7 @@ class Program {
     database.query(loginQRY, [req.body, req.params.id], (err) => {
       if (err) {
         // Return an error if the query fails
-        res.status(400).json({ err: "Unable to update a record." });
+        res.status(400).json({ err: "Unable to update record." });
       } else {
         // Return a success message if the query succeeds
         res.status(200).json({ msg: "VolunteerPrograms updated" });
