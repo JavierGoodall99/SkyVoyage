@@ -1,4 +1,3 @@
-
 <template>
   <div class="body">
     <h1>Users</h1>
@@ -138,7 +137,7 @@ export default {
   methods: {
     showAddModal() {
       this.modalTitle = "Add User";
-      this.modalAction = "register";
+      this.modalAction = "Add";
       this.form = {
         FirstName: "",
         LastName: "",
@@ -174,10 +173,10 @@ export default {
     },
     deleteUser(user) {
       console.log(user); // Add this line
-      console.log('user: ', user.ID);
       if (confirm("Are you sure you want to delete this program?")) {
         if (user.ID) {
-          this.$store.dispatch("deleteProgram", user.ID).then(() => {
+          console.log('User: ', user.ID);
+          this.$store.dispatch("deleteUser", user.ID).then(() => {
             // handle success
             console.log("Program deleted successfully");
             // window.location.reload();

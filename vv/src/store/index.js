@@ -5,9 +5,9 @@ const bStoreURL = 'https://volunteerventures.onrender.com/'
 export default createStore({
   state: {
     user: null,
-    users: null,
     message: null,
     loading: false,
+    users: [],
     programs: [],
     flights: []
   },
@@ -18,13 +18,13 @@ export default createStore({
     setUser (state, payload) {
       state.user = payload
     },
-    setUsers (state, payload) {
-      state.users = payload
-    },
     setMessage (state, payload) {
       state.message = payload
     },
     // ---------------------User---------------------------------------
+    setUsers (state, users) {
+      state.users = users;
+    },
     addUser(state, users) {
       state.users = users;
     },
@@ -161,11 +161,11 @@ export default createStore({
   async deleteUser(context, id) {
     try {
       const res = await axios.delete(`${bStoreURL}user/${id}`);
-      const { result, err, msg } = await res.data;
-      if (result) {
-        context.commit('deleteUser', id);
+      const { err, msg } = await res.data;
+      if (msg) {
+        context.dispatch('retrieveUsers');
         context.commit('setMessage', msg);
-        window.location.reload(); 
+        // window.location.reload(); 
       } else {
         context.commit('setMessage', err)
       }
@@ -269,10 +269,11 @@ export default createStore({
   },
   async updateFlight(context, payload) {
     try {
-      const res = await axios.put(`${bStoreURL}flight/${payload.ID}`, payload);
-      const { result, err, msg } = await res.data;
-      if (result) {
-        context.commit('updateFlight', result);
+      const res = await axios.put(`${bStoreURL}flights/${payload.ID}`, payload);
+      const { err, msg } = await res.data;
+      if (msg) {
+        // context.commit('updateFlight', result);
+        context.dispatch('fetchFlights')
         context.commit('setMessage', msg)
       } else {
         context.commit('setMessage', err)
@@ -303,24 +304,17 @@ export default createStore({
   getters: {
     getUser: state => state.user,
     getMessage: state => state.message,
+    getUsers: state => state.users,
     getPrograms: state => state.programs,
     getFlights: state => state.flights,
     authenticated(state) {
       return state.user !== null;
     },
-    getProductById: state => id => {
-      return state.products.find(product => product.id === id);
-    }
+    // getProductById: state => id => {
+    //   return state.products.find(product => product.id === id);
+    // }
   }
   });
-
-
-// export default {
-//   state,
-//   mutations,
-//   actions,
-//   getters
-// };
 
 
 

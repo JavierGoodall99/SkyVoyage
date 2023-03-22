@@ -190,11 +190,11 @@ methods: {
     }
   },
   updateFlight(flight) {
-    console.log('Flight: ', flight.ID);
     if (flight.ID) {
-      this.$store.dispatch("updateFlight", flight.ID).then(() => {
+      console.log('Flight: ', flight.ID);
+      this.$store.dispatch("updateFlight", flight).then(() => {
         // handle success
-        console.log("Program updated successfully");
+        console.log("Flight updated successfully");
       //   window.location.reload();
       })
         .catch(err => {
