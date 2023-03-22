@@ -2,18 +2,22 @@
   <div class="bg">
     <h1>Programs</h1>
     <div class="filters pb-5">
+
       <!-- FILTER -->
       <label for="location" class="px-3">Filter by location:</label>
       <select v-model="selectedLocation">
         <option value="">All Locations</option>
         <option v-for="location in locations" :key="location">{{ location }}</option>
       </select>
+
       <!-- SORT BY -->
       <label for="location" class="px-3">Sort by:</label>
       <button class="sort-button mx-3" @click="toggleSortOrder">Program Name {{ sortOrder }}</button>
+
       <!-- SEARCH -->
       <label for="search" class="px-3">Search:</label>
       <input id="search" v-model="searchQuery" type="text" placeholder="Search programs...">
+
     </div>
     <div class="card-container">
       <div class="card" v-for="program in sortedPrograms" :key="program.id">
@@ -45,12 +49,12 @@ export default {
   computed: {
     // Map the 'authenticated' getter from Vuex store to a computed property
     ...mapGetters(['authenticated']),
-    
+
     // Get the list of programs from the Vuex store
     programs() {
       return this.$store.state.programs;
     },
-    
+
     // Get a list of unique locations from the programs
     locations() {
       const locations = new Set();
@@ -59,7 +63,7 @@ export default {
       }
       return Array.from(locations);
     },
-    
+
     // Filter the programs by the selected location and search query
     filteredPrograms() {
       let filtered = this.programs;
@@ -68,7 +72,7 @@ export default {
       if (this.selectedLocation) {
         filtered = filtered.filter(program => program.Location === this.selectedLocation);
       }
-      
+
       // If a search query is entered, filter by program name
       if (this.searchQuery) {
         const query = this.searchQuery.toLowerCase();
@@ -79,17 +83,9 @@ export default {
 
     // Sort the filtered programs by program name
     sortedPrograms() {
-      const sorted = [...this.filteredPrograms].sort((a, b) => {
-        if (a.ProgramName < b.ProgramName) {
-          return this.sortOrder === 'ascending' ? -1 : 1;
-        }
-        if (a.ProgramName > b.ProgramName) {
-          return this.sortOrder === 'ascending' ? 1 : -1;
-        }
-        return 0;
-      });
+      const sorted = [...this.filteredPrograms].sort((a, b) => a.ProgramName < b.ProgramName ? (this.sortOrder === 'ascending' ? -1 : 1) : (a.ProgramName > b.ProgramName ? (this.sortOrder === 'ascending' ? 1 : -1) : 0));
       return sorted;
-    },
+    }
   },
   data() {
     return {
@@ -167,7 +163,7 @@ h1 {
 }
 
 .card-details {
-  background-color:  #6e91b3;
+  background-color: #6e91b3;
 }
 
 .card-img img {
@@ -178,20 +174,20 @@ h1 {
 }
 
 .card-body {
-padding: 1.5rem;
-background-color: #6e91b3;
+  padding: 1.5rem;
+  background-color: #6e91b3;
 }
 
 h2 {
-margin-bottom: 0.5rem;
-font-size: 2rem;
-color: white;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  color: white;
 }
 
 p {
-margin-bottom: 1rem;
-font-size: 1.2rem;
-color: white;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: white;
 }
 
 .view-more-button {
@@ -203,28 +199,28 @@ color: white;
 option,
 select,
 .sort-button {
-padding: 0.5rem 1rem;
-background-color: rgb(27, 61, 102);
-color: #fff;
-border: none;
-border-radius: 0.5rem;
-cursor: pointer;
-transition: background-color 0.2s ease-in-out;
+  padding: 0.5rem 1rem;
+  background-color: rgb(27, 61, 102);
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
 input {
-border-radius: 5px;
-padding: 5px;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .view-more-button:hover {
-background-color: rgb(55, 98, 151);
+  background-color: rgb(55, 98, 151);
 }
 
 @media (max-width: 768px) {
-.card {
-margin-bottom: 1.5rem;
-}
+  .card {
+    margin-bottom: 1.5rem;
+  }
 }
 </style>
 

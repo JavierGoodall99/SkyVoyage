@@ -20,6 +20,12 @@ components:{
 
 </script>
 <style>
+  .body{
+	margin:0;
+	padding:20px;
+  background: radial-gradient(circle, rgba(248, 248, 248, 1) 0%, rgb(193, 210, 232) 100%);
+  font-family: 'Black Mango Medium';
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

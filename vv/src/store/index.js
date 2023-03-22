@@ -12,8 +12,8 @@ export default createStore({
     flights: []
   },
   mutations: {
-    setLoading(state, status) {
-      state.loading = status
+    setLoading(state, loading) {
+      state.loading = loading
     },
     setUser (state, payload) {
       state.user = payload
@@ -165,7 +165,7 @@ export default createStore({
       if (result) {
         context.commit('deleteUser', id);
         context.commit('setMessage', msg);
-        // window.location.reload(); 
+        window.location.reload(); 
       } else {
         context.commit('setMessage', err)
       }

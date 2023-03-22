@@ -1,6 +1,6 @@
 <template lang="">
 <div class="item">
-    <div class="loader-pulse"></div>
+    <div class="spinner"></div>
 </div>
 </template>
 <script>
@@ -10,15 +10,16 @@ export default {
 </script>
 <style scoped>
 
-.loader-pulse {
+.spinner {
+  margin: auto;
   width: 64px;
   height: 64px;
   border-radius: 50%;
   background: #20397e;
-  animation: load-pulse 0.85s infinite linear;
+  animation: spinner 0.85s infinite linear;
 }
 
-@keyframes load-pulse {
+@keyframes spinner {
   0% {
     transform: scale(0.15);
     opacity: 0;
