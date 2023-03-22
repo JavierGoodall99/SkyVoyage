@@ -1,30 +1,40 @@
-<template>  
+<template>
   <body>
     <div>
       <h2>Flight Booking</h2>
-      <form class="flight-form">
-        <div class="form-group">
+      <form class="flight-form" @submit.prevent="searchFlights">
+        <div class="col-md-6 form-group">
           <label for="departure">Departure</label>
           <select v-model="selectedDepartureCity">
             <option value="">From:</option>
             <option v-for="DepartureCity in DepartureCities" :key="DepartureCity">{{ DepartureCity }}</option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="col-md-6 form-group">
           <label for="destination">Destination</label>
           <select v-model="selectedArrivalCity">
-            <option value="">From:</option>
+            <option value="">To:</option>
             <option v-for="ArrivalCity in ArrivalCities" :key="ArrivalCity">{{ ArrivalCity }}</option>
           </select>
         </div>
-        <div class="form-group">
-          <label for="departure-date">Departure Date</label>
-          <input type="date" id="departure-date">
-        </div>
-        <div class="card" v-for="flight in flights" :key="flight.id">
-          <router-link :to="{ name: 'flight', params: { id: flight.ID } }"><button class="view-more-button">Explore</button></router-link>
+        <div class="col-md-12">
+          <button class="search">Search Flights</button>
         </div>
       </form>
+      <div v-if="searchedFlights.length > 0">
+        <h3>Available Flights</h3>
+        <div class="card" v-for="flight in searchedFlights" :key="flight.id">
+        <div class="flight-details">
+          <p class="flight-route">{{ flight.DepartureCity }} to {{ flight.ArrivalCity }}</p>
+          <div class="flight-timings">
+            <p class="departure-time">Departure: {{ flight.DepartureDate }}, <br> Time: {{ flight.DepartureTime }}</p>
+            <p class="arrival-time">Arrival: {{ flight.ArrivalDate }}, <br> Time: {{ flight.ArrivalTime }}</p>
+          </div>
+          <p class="flight-price">Price: {{ flight.Price }}</p>
+          <button class="book-button" @click="bookFlight(flight)">Book Now</button>
+        </div>
+      </div>
+      </div>
     </div>
     <div>
       <img src="https://i.postimg.cc/VNSRJnww/output-onlinegiftools.gif" alt="" class="loop-animation">
@@ -37,14 +47,18 @@ export default {
   data() {
     return {
       selectedDepartureCity: '',
-      selectedArrivalCity: ''
+      selectedArrivalCity: '',
+      selectedDepartureDate: '',
+      searchedFlights: [],
     };
   },
   computed: {
     // Get the list of flights from the Vuex store
     flights() {
-      return this.$store.state.flights;
-    },
+  const flights = this.$store.state.flights;
+  console.log('flights:', flights);
+  return flights;
+},
     // Get a list of unique departure cities from the flights
     DepartureCities() {
       const DepartureCities = new Set();
@@ -61,6 +75,23 @@ export default {
       return Array.from(ArrivalCities);
     },
   },
+  methods: {
+    searchFlights() {
+  this.searchedFlights = this.flights.filter(flight => {
+    return (
+      flight.DepartureCity === this.selectedDepartureCity &&
+      flight.ArrivalCity === this.selectedArrivalCity
+    );
+  });
+  console.log('searchedFlights:', this.searchedFlights);
+},
+//     bookFlight(flight) {
+//   // Set the booked flight in the Vuex store
+//   this.$store.commit('bookFlight', flight);
+//   // Redirect the user to the booking confirmation page
+//   this.$router.push({ name: 'confirmation' });
+// }
+  },
   created() {
     // Fetch the list of flights from the Vuex store
     this.$store.dispatch('fetchFlights');
@@ -71,13 +102,75 @@ export default {
   
   <style scoped>
 
+
+.card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px;
+  margin-top: 50px;
+  background-color: #f1f1f1;
+  letter-spacing: 0.1rem;
+}
+
+.flight-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  letter-spacing: 0.1rem;
+}
+
+.flight-route {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  letter-spacing: 0.1rem;
+}
+
+.flight-timings {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px 0;
+  letter-spacing: 0.1rem;
+}
+
+.departure-time, .arrival-time {
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: 0.1rem;
+}
+
+.flight-price {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 10px 0;
+  letter-spacing: 0.1rem;
+}
+
+.book-button {
+  background-color:  #21507e;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  letter-spacing: 0.1rem;
+}
+
+.book-button:hover {
+  background-color: #21467c;
+}
+
+  
 h2{
-  /* margin-bottom: 20px; */
   font-size: 4rem;
   padding-top: 30px;
   color: rgb(27, 61, 102);
 }
-
 
 .flight-form {
   display: flex;
@@ -90,18 +183,14 @@ h2{
 
 .flight-form h2 {
   margin-top: 0;
+  letter-spacing: 0.1rem;
 }
 
 .form-group {
-  width: 32%;
+  width: 49%;
   margin-bottom: 20px;
+  letter-spacing: 0.1rem;
 }
-
-/* .form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bolder;
-} */
 
 .form-group label {
   font-weight: bold;
@@ -113,9 +202,10 @@ h2{
   border-radius: 4px;
   font-size: 16px;
   font-weight: bold;
+  letter-spacing: 0.1rem;
 }
 
-button[type="submit"] {
+.search {
   width: 100%;
   padding: 10px;
   background-color: #21507e;
@@ -124,17 +214,12 @@ button[type="submit"] {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  letter-spacing: 0.1rem;
 }
 
-button[type="submit"]:hover {
+.search:hover {
   background-color: #21467c;
 }
-
-
-
-
-
-
 
   h1 {
     font-size: 6rem;
@@ -148,6 +233,7 @@ button[type="submit"]:hover {
     overflow: hidden;
   background: radial-gradient(circle, rgba(248,248,248,1) 0%,  rgb(193, 210, 232)100%);
   font-family: 'Black Mango Medium';
+  letter-spacing: 0.1rem;
   }
   
   .clean {

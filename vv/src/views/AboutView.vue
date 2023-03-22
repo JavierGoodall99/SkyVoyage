@@ -41,7 +41,7 @@
   </div>
 
 
-    <h2 class="Our">Our Work</h2>
+    <h2 class="Our">Volunteer Highlights</h2>
     <div class="glide" id="glide1">
         <div class="glide__track" data-glide-el="track">
           <ul class="glide__slides">

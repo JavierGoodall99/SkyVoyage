@@ -12,6 +12,9 @@ export default createStore({
     flights: []
   },
   mutations: {
+    bookFlight(state, flight) {
+      state.bookedFlight = flight;
+    },
     setLoading(state, loading) {
       state.loading = loading
     },
@@ -210,6 +213,7 @@ export default createStore({
         const { result, err, msg } = await res.data;
         if (result) {
           context.commit('updateProgram', result);
+          context.dispatch('retrievePrograms');
           context.commit('setMessage', msg)
         } else {
           context.commit('setMessage', err)
@@ -223,11 +227,12 @@ export default createStore({
     async deleteProgram(context, id) {
       try {
         const res = await axios.delete(`${bStoreURL}program/${id}`);
-        const { result, err, msg } = await res.data;
-        if (result) {
-          context.commit('deleteProgram', id);
+        const { err, msg } = await res.data;
+        if (msg) {
+          // context.commit('deleteProgram', id);
+          context.dispatch('fetchPrograms');
           context.commit('setMessage', msg);
-          window.location.reload(); 
+          // window.location.reload(); 
         } else {
           context.commit('setMessage', err)
         }
@@ -250,7 +255,7 @@ export default createStore({
     }
   },
   async fetchFlight(context, id) {
-    const res = await axios.get(`${bStoreURL}flight/${id}`);
+    const res = await axios.get(`${bStoreURL}flights/${id}`);
     const { results } = await res.data;
     if(results) {
       console.log(results[0])
@@ -258,7 +263,7 @@ export default createStore({
     }
   },
   async addFlight(context, payload) {
-    const res = await axios.post(`${bStoreURL}flight`, payload);
+    const res = await axios.post(`${bStoreURL}flights`, payload);
     const { result, err, msg } = await res.data;
     if (result) {
       context.commit('updateFlight', result);
@@ -267,29 +272,29 @@ export default createStore({
       context.commit('setMessage', err)
     }
   },
-  async updateFlight(context, payload) {
-    try {
-      const res = await axios.put(`${bStoreURL}flights/${payload.ID}`, payload);
-      const { err, msg } = await res.data;
-      if (msg) {
-        // context.commit('updateFlight', result);
-        context.dispatch('fetchFlights')
-        context.commit('setMessage', msg)
-      } else {
-        context.commit('setMessage', err)
-      }
-    } catch (error) {
-      console.error(error);
-      context.commit('setMessage', 'Error updating flight');
+async updateFlight(context, payload) {
+  try {
+    const res = await axios.put(`${bStoreURL}flights/${payload.ID}`, payload);
+    const { err, msg } = await res.data;
+    if (msg) {
+      context.dispatch('fetchFlights')
+      context.commit('setMessage', msg)
+    } else {
+      context.commit('setMessage', err)
     }
-  },
+  } catch (error) {
+    console.error(error);
+    context.commit('setMessage', 'Error updating flight');
+  }
+},
+  
   
   async deleteFlight(context, id) {
     try {
       const res = await axios.delete(`${bStoreURL}flight/${id}`);
-      const { result, err, msg } = await res.data;
-      if (result) {
-        context.commit('deleteFlight', id);
+      const { err, msg } = await res.data;
+      if (msg) {
+        context.dispatch('fetchFlights');
         context.commit('setMessage', msg);
         // window.location.reload(); 
       } else {

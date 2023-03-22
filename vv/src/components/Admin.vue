@@ -157,7 +157,6 @@ export default {
           this.$store.dispatch("deleteProgram", program.ID).then(() => {
             // handle success
             console.log("Program deleted successfully");
-            window.location.reload();
           }).catch(err => {
             // handle error
             console.error(err);
@@ -173,7 +172,6 @@ export default {
         this.$store.dispatch("updateProgram", program.ID).then(() => {
           // handle success
           console.log("Program updated successfully");
-          window.location.reload();
         })
           .catch(err => {
             // handle error
