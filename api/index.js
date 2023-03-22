@@ -25,15 +25,13 @@ app.use((req, res, next) => {
   next();
 });
 
-// Mount the route controller on the app
-app.use(route);
-
 // Mount the middleware stack on the app
 app.use(
+  require('cookie-parser')(),
   cors(),
+  route,
   express.json(),
-  express.urlencoded({extended: false}),
-  require('cookie-parser')()
+  express.urlencoded({extended: true}),
 );
 
 // Start the server
