@@ -9,11 +9,16 @@ export default createStore({
     loading: false,
     users: [],
     programs: [],
-    flights: []
+    flights: [],
+    bookedFlights: [],
+    
   },
   mutations: {
     bookFlight(state, flight) {
-      state.bookedFlight = flight;
+      state.bookedFlights.push(flight);
+    },
+    removeFlight(state, index) {
+      state.bookedFlights.splice(index, 1);
     },
     setLoading(state, loading) {
       state.loading = loading
@@ -92,6 +97,12 @@ export default createStore({
 
     // ------------------------------------------REGISTER/LOGIN-----------------------------------------------------
     actions: {
+      removeFlight({ commit, state }, flight) {
+        const index = state.bookedFlights.indexOf(flight);
+        if (index !== -1) {
+          commit('removeFlight', index);
+        }
+      },
     async register (context, payload) {
       console.log(payload);
       const res = await axios.post(`${bStoreURL}register`, payload)
@@ -255,7 +266,7 @@ export default createStore({
     }
   },
   async fetchFlight(context, id) {
-    const res = await axios.get(`${bStoreURL}flights/${id}`);
+    const res = await axios.get(`${bStoreURL}flight/${id}`);
     const { results } = await res.data;
     if(results) {
       console.log(results[0])
@@ -263,7 +274,7 @@ export default createStore({
     }
   },
   async addFlight(context, payload) {
-    const res = await axios.post(`${bStoreURL}flights`, payload);
+    const res = await axios.post(`${bStoreURL}flight`, payload);
     const { result, err, msg } = await res.data;
     if (result) {
       context.commit('updateFlight', result);
@@ -275,7 +286,7 @@ export default createStore({
 async updateFlight(context, payload) {
   try {
     console.log("Flight object: ", payload);
-    const res = await axios.put(`${bStoreURL}flights/${payload.ID}`, payload);
+    const res = await axios.put(`${bStoreURL}flight/${payload.ID}`, payload);
     console.log("response - backend: ", res);
     const { err, msg } = await res.data;
     if (msg) {
@@ -316,6 +327,14 @@ async updateFlight(context, payload) {
     getFlights: state => state.flights,
     authenticated(state) {
       return state.user !== null;
+    },
+    bookedFlights(state) {
+      return state.bookedFlights;
+    },
+    totalCost(state) {
+      return state.bookedFlights.reduce((total, flight) => {
+        return total + flight.price;
+      }, 0);
     },
     // getProductById: state => id => {
     //   return state.products.find(product => product.id === id);

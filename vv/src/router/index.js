@@ -49,6 +49,11 @@ const routes = [
     path: '/flight/:id',
     name: 'flight',
     component: FlightDetails
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: import('../views/CartView.vue')
   }
 ];
 

@@ -91,12 +91,12 @@ formatDate() {
   });
   console.log('searchedFlights:', this.searchedFlights);
 },
-//     bookFlight(flight) {
-//   // Set the booked flight in the Vuex store
-//   this.$store.commit('bookFlight', flight);
-//   // Redirect the user to the booking confirmation page
-//   this.$router.push({ name: 'confirmation' });
-// }
+    bookFlight(flight) {
+  // Set the booked flight in the Vuex store
+  this.$store.commit('bookFlight', flight);
+  // Redirect the user to the booking confirmation page
+  this.$router.push("/cart");
+}
   },
   created() {
     // Fetch the list of flights from the Vuex store
