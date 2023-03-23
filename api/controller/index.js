@@ -85,7 +85,7 @@ route.get("/flights", (req, res) => {
   });
   // Create flights route
   route.post("/flight", bodyParser.json(), (req, res) => {
-    flights.addFlight(req, res);
+    flights.add(req, res);
   });
   // Update flights route
   route.put("/flight/:id", bodyParser.json(), (req, res) => {
