@@ -27,8 +27,8 @@
         <div class="flight-details">
           <p class="flight-route">{{ flight.DepartureCity }} to {{ flight.ArrivalCity }}</p>
           <div class="flight-timings">
-            <p class="departure-time">Departure: {{ flight.DepartureDate }}, <br> Time: {{ flight.DepartureTime }}</p>
-            <p class="arrival-time">Arrival: {{ flight.ArrivalDate }}, <br> Time: {{ flight.ArrivalTime }}</p>
+            <p class="departure-time">Departure: {{ formatDate(flight.DepartureDate) }}, <br> Time: {{ flight.DepartureTime }}</p>
+            <p class="arrival-time">Arrival: {{ formatDate(flight.ArrivalDate) }}, <br> Time: {{ flight.ArrivalTime }}</p>
           </div>
           <p class="flight-price">Price: {{ flight.Price }}</p>
           <button class="book-button" @click="bookFlight(flight)">Book Now</button>
@@ -59,6 +59,12 @@ export default {
   console.log('flights:', flights);
   return flights;
 },
+formatDate() {
+    return function(date) {
+      const d = new Date(date);
+      return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    };
+  },
     // Get a list of unique departure cities from the flights
     DepartureCities() {
       const DepartureCities = new Set();

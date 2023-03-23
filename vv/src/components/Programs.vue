@@ -122,6 +122,7 @@ export default {
 
 .bg {
   background: radial-gradient(circle, rgba(248, 248, 248, 1) 0%, rgb(193, 210, 232)100%);
+
 }
 
 h1 {

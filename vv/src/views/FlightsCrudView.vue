@@ -15,24 +15,26 @@
             <th>Arrival Date</th>
             <th>Arrival Time</th>
             <th>Price</th>
-            <th><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                @click="showAddModal">Add Flight</button></th>
+            <th><button class="btn btn-primary" data-bs-toggle="modal" @click.prevent="showAddModal" :data-bs-target="'#flightModal'">Add Flight</button></th>
           </tr>
         </thead>
         <tbody>
           <tr class="program"  v-for="flight in flights" :key="flight.id">
             <td data-label="Departure City">{{ flight.DepartureCity }}</td>
-            <td data-label="Departure Date">{{ flight.DepartureDate }}</td>
+            <td data-label="Departure Date">{{ formatDate(flight.DepartureDate) }}</td>
             <td data-label="Departure Time">{{ flight.DepartureTime }}</td>
             <td data-label="Arrival City">{{ flight.ArrivalCity }}</td>
-            <td data-label="Arrival Date">{{ flight.ArrivalDate }}</td>
+            <td data-label="Arrival Date">{{ formatDate(flight.ArrivalDate) }}</td>
             <td data-label="Arrival Time">{{ flight.ArrivalTime }}</td>
             <td data-label="Price">{{ flight.Price }}</td>
             <td>
-              <button @click="showEditModal(flight)">Edit</button>
-              <button @click="deleteFlight(flight)">Delete</button>
+              <!-- @click.prevent="showEditModal(flight)" -->
+              <button data-bs-toggle="modal" @click.prevent="showEditModal(flight)"  :data-bs-target="'#flightModal' +`${flight.ID}`">Edit</button>
+              <button @click.prevent="deleteFlight(flight)">Delete</button>
               <!-- Add Program Modal -->
-              <div class="modal" tabindex="-1" role="dialog" :class="{ 'd-block': showModal }">
+              <!-- :class="{ 'd-block': showModal }" -->
+              <div class="modal fade" tabindex="-1" :id="'flightModal' +`${flight.ID}`" role="dialog" 
+              aria-labelledby="flightModal" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -41,10 +43,10 @@
                         @click="cancelForm"></button>
                     </div>
                     <div class="modal-body">
-                      <form @submit.prevent="submitForm">
+                      <form>
                         <div class="mb-3">
                           <label for="departure-city" class="form-label">Departure City:</label>
-                          <input id="departure-city" v-model="form.DepartureCity" required class="form-control" />
+                          <input  v-model="form.DepartureCity" required class="form-control" />
                         </div>
                         <div class="mb-3">
                           <label for="departure-date" class="form-label">Departure Date:</label>
@@ -72,8 +74,8 @@
                           <input id="price" v-model="form.Price" required class="form-control" />
                         </div>
                         <div class="modal-footer">
-                          <button v-if="!editingFlight" @click="showModal()">Add</button>
-                          <button @click="updateFlight(flight)">Edit</button>
+                          <button v-if="!editingFlight" @click.prevent="showModal()">Add</button>
+                          <button @click.prevent="updateFlight(flight)">Edit</button>
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                             @click="cancelForm">Cancel</button>
                         </div>
@@ -100,6 +102,12 @@ export default {
 computed: {
   flights() {
     return this.$store.state.flights;
+  },
+  formatDate() {
+    return function(date) {
+      const d = new Date(date);
+      return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    };
   },
   loading() {
       return this.$store.state.loading;
@@ -130,20 +138,21 @@ created() {
 },
 methods: {
   showAddModal() {
-    this.modalTitle = "Add Flight";
-    this.modalAction = "Add";
-    this.form = {
-      DepartureCity: "",
-      DepartureDate: "",
-      DepartureTime: "",
-      ArrivalCity: "",
-      ArrivalDate: "",
-      ArrivalTime: "",
-      Price: "",
-    };
-    this.editingFlight = false;
-    this.showModal = true;
-  },
+  this.modalTitle = "Add Flight";
+  this.modalAction = "Add";
+  this.form = {
+    DepartureCity: "",
+    DepartureDate: "",
+    DepartureTime: "",
+    ArrivalCity: "",
+    ArrivalDate: "",
+    ArrivalTime: "",
+    Price: "",
+  };
+  this.editingFlight = false;
+  this.showModal = true;
+  this.formSubmitMethod = this.addFlight;
+},
 
   showEditModal(flight) {
     this.modalTitle = "Edit Flight";
@@ -190,17 +199,14 @@ methods: {
     }
   },
   updateFlight(flight) {
+    // console.log("New data - flight: ", flight);
     if (flight.ID) {
       console.log('Flight: ', flight.ID);
-      this.$store.dispatch("updateFlight", flight).then(() => {
-        // handle success
-        console.log("Flight updated successfully");
-      //   window.location.reload();
-      })
-        .catch(err => {
-          // handle error
-          console.error(err);
-        });
+      try{
+        this.$store.dispatch("updateFlight", this.form)
+      }catch(e) {
+        console.log("Error - update: ", e.data.err);
+      }
     } else {
       console.error("Invalid flight ID");
     }
@@ -244,12 +250,18 @@ h1 {
     border: 1px solid rgb(27, 61, 102);
     text-align: center;
     font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  letter-spacing: 0.1rem;
+  color: black;
 }
 
 .table th {
-  font-size: 1.2rem;
+  font-size: 16px;
   font-weight: bold;
-  color: #555;
+  margin: 0;
+  letter-spacing: 0.1rem;
+  color: black;
 }
 
 

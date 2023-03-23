@@ -219,12 +219,18 @@ h1 {
     border: 1px solid rgb(27, 61, 102);
     text-align: center;
     font-size: 16px;
+  font-weight: bold;
+  color: black;
+  margin: 0;
+  letter-spacing: 0.1rem;
 }
 
 .table th {
-  font-size: 1.2rem;
+  font-size: 16px;
   font-weight: bold;
-  color: #555;
+  margin: 0;
+  letter-spacing: 0.1rem;
+  color: #000000;
 }
 
 

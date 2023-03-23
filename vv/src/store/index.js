@@ -70,13 +70,13 @@ export default createStore({
     setFlights (state, flights) {
       state.flights = flights;
     },
-    setFlight (state, flight) {
-      state.flight = flight;
-    },
+    // setFlight (state, flight) {
+    //   state.flight = flight;
+    // },
     addFlight(state, flights) {
       state.flights = flights;
     },
-    updateFlight(state, payload) {
+    setFlight(state, payload) {
       state.flights = state.flights.map(flight => {
         if (flight.id === payload.id) {
           return payload;
@@ -210,9 +210,9 @@ export default createStore({
     async updateProgram(context, payload) {
       try {
         const res = await axios.put(`${bStoreURL}program/${payload.ID}`, payload);
-        const { result, err, msg } = await res.data;
-        if (result) {
-          context.commit('updateProgram', result);
+        const { err, msg } = await res.data;
+        if (msg) {
+          // context.commit('updateProgram', result);
           context.dispatch('retrievePrograms');
           context.commit('setMessage', msg)
         } else {
@@ -274,7 +274,9 @@ export default createStore({
   },
 async updateFlight(context, payload) {
   try {
+    console.log("Flight object: ", payload);
     const res = await axios.put(`${bStoreURL}flights/${payload.ID}`, payload);
+    console.log("response - backend: ", res);
     const { err, msg } = await res.data;
     if (msg) {
       context.dispatch('fetchFlights')
