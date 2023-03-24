@@ -12,7 +12,7 @@ const { User, Program, Flights, Bookings } = require("../model");
 const user = new User();
 const program = new Program();
 const flights = new Flights();
-const cart = new Bookings();
+const booking = new Bookings();
 
 // Set up the route for the homepage
 // This route matches either the root URL or /VolunteerVentures
@@ -100,24 +100,22 @@ route.get("/flights", (req, res) => {
 
 // ----------------------------------------------Bookings---------------------------------------------
 
-route.get("/bookings/:userId", (req, res) => {
-  flights.retrieveBookings(req, res);
+// Retrieve all bookings
+route.get("/user/:id/bookings", (req, res) => {
+  booking.retrieveBookings(req, res);
 });
-// Fetch single flights route
-route.get("/bookings/:bookingId", (req, res) => {
-  flights.retrieveBooking(req, res);
+
+// Create booking route
+route.post("/user/:id/booking", bodyParser.json(), (req, res) => {
+  booking.addBooking(req, res);
 });
-// Create flights route
-route.post("/bookings", bodyParser.json(), (req, res) => {
-  flights.addBooking(req, res);
+// Update bookings route
+route.put("/user/:id/booking/:id", bodyParser.json(), (req, res) => {
+  booking.updateBooking(req, res);
 });
-// Update flights route
-route.put("/bookings/:bookingId", bodyParser.json(), (req, res) => {
-  flights.updateBooking(req, res);
-});
-// Delete flights route
-route.delete("/bookings/:bookingId", (req, res) => {
-  flights.deleteBooking(req, res);
+// Delete booking route
+route.delete("/user/:id/booking", (req, res) => {
+  booking.deleteBooking(req, res);
 });
 
 

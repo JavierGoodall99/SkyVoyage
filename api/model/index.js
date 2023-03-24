@@ -341,80 +341,68 @@ class Flights {
 
 
   class Bookings {
-    // Fetch all products
     retrieveBookings(req, res) {
-      const loginQRY = `SELECT * 
-      FROM Bookings 
-      WHERE UserID = ?
-    `;
-      // Run the SQL query
-      database.query(loginQRY, (err, results) => {
-        if (err) throw err;
-        // Return the query results
-        res.status(200).json({ results: results });
-      });
+        const loginQRY = `SELECT UserID, DepartureCity, DepartureDate, DepartureTime, ArrivalCity, ArrivalDate, ArrivalTime, Price
+        FROM Bookings
+        INNER JOIN Flights ON Bookings.ID = Flights.ID=${req.params.id};`;
+
+        database.query(loginQRY,(err, data) =>{
+            if(err){
+                console.log(err);
+                res.status(400).json({err: "The Cart is empty"});
+            } 
+            else res.status(200).json({results: data})
+        })
     }
 
-    // Fetch a specific product using the program id
-    retrieveBooking(req, res) {
-      const loginQRY = `
-      SELECT * FROM Bookings WHERE ID = ?
-    `;
-      // Run the SQL query with a parameterized query
-      database.query(loginQRY, [req.params.id], (err, results) => {
-        if (err) throw err;
-        // Return the query results
-        res.status(200).json({ results: results });
-      });
-    }
-    // Add a new program
     addBooking(req, res) {
-      const loginQRY = `
-      INSERT INTO Bookings SET ?
-      `;
-      // Run the SQL query with the request body as the data
-      database.query(loginQRY, [req.body], (err) => {
-        if (err) {
-          // Return an error if the query fails
-          res.status(400).json({ err: "Unable to insert a new record." });
-        } else {
-          // Return a success message if the query succeeds
-          res.status(200).json({ msg: "Cart saved" });
-        }
-      });
-    };
-
-    // Update an existing product using the product id
-    updateBooking(req, res) {
-      const loginQRY = `
-      UPDATE Bookings SET ? WHERE ID = ?
-    `;
-      // Run the SQL query with the request body and product id as parameters
-      database.query(loginQRY, [req.body, req.params.id], (err) => {
-        if (err) {
-          // Return an error if the query fails
-          res.status(400).json({ err: "Unable to update record." });
-        } else {
-          // Return a success message if the query succeeds
-          res.status(200).json({ msg: "Cart updated" });
-        }
-      });
+        const loginQRY = 
+        `
+        INSERT INTO Bookings
+        SET ?;
+        `;
+        database.query(loginQRY,[req.body],
+            (err)=> {
+                if(err){
+                    res.status(400).json({err: "Could not add to the Booking"});
+                }else {
+                    res.status(200).json({message: "Added to the Booking"});
+                }
+            }
+        );   
     }
 
-
-    // Delete an existing product using the product id
     deleteBooking(req, res) {
-      const loginQRY = `
-      DELETE FROM Bookings WHERE ID = ?
-    `;
-      // Run the SQL query with the product id as a parameter
-      database.query(loginQRY, [req.params.id], (err) => {
-        if (err) res.status(400).json({ err: "The record was not found." });
-        // Return a success message if the query succeeds
-        res.status(200).json({ msg: "A item was deleted." });
-      });
+        const loginQRY = 
+        `
+        DELETE FROM Bookings
+        WHERE ID = ?; `
+        database.query(loginQRY,[req.params.id], (err)=> {
+            if(err) res.status(400).json({err: "The flight was not found."});
+            res.status(200).json({message: "A flight was deleted."});
+        })
     }
-  }
+
+    updateBooking(req, res) {
+        const loginQRY = 
+        `
+        UPDATE Bookings
+        SET ?
+        WHERE ID = ?
+        `;
+        database.query(loginQRY,[req.body, req.params.id],
+            (err)=> {
+                if(err){
+                    res.status(400).json({err: "Unable to update a record."});
+                }else {
+                    res.status(200).json({message: "Flight updated"});
+                }
+            }
+        );    
+
+    }
+
+}
 
 
 
