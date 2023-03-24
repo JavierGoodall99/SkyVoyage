@@ -340,11 +340,13 @@ class Flights {
 
 
 
-  class Cart {
+  class Bookings {
     // Fetch all products
-    retrieveCarts(req, res) {
-      const loginQRY = `SELECT ID, UserID, VolunteerProgramID, FlightID
-          FROM Bookings;`;
+    retrieveBookings(req, res) {
+      const loginQRY = `SELECT * 
+      FROM Bookings 
+      WHERE UserID = ?
+    `;
       // Run the SQL query
       database.query(loginQRY, (err, results) => {
         if (err) throw err;
@@ -352,11 +354,12 @@ class Flights {
         res.status(200).json({ results: results });
       });
     }
+
     // Fetch a specific product using the program id
-    retrieveCart(req, res) {
-      const loginQRY = `SELECT ID, UserID, VolunteerProgramID, FlightID
-          FROM Bookings;
-          WHERE ID = ?;`;
+    retrieveBooking(req, res) {
+      const loginQRY = `
+      SELECT * FROM Bookings WHERE ID = ?
+    `;
       // Run the SQL query with a parameterized query
       database.query(loginQRY, [req.params.id], (err, results) => {
         if (err) throw err;
@@ -365,11 +368,10 @@ class Flights {
       });
     }
     // Add a new program
-    addCart(req, res) {
+    addBooking(req, res) {
       const loginQRY = `
-          INSERT INTO Bookings
-          SET ?;
-          `;
+      INSERT INTO Bookings SET ?
+      `;
       // Run the SQL query with the request body as the data
       database.query(loginQRY, [req.body], (err) => {
         if (err) {
@@ -380,14 +382,13 @@ class Flights {
           res.status(200).json({ msg: "Cart saved" });
         }
       });
-    }
+    };
+
     // Update an existing product using the product id
-    updateCart(req, res) {
+    updateBooking(req, res) {
       const loginQRY = `
-          UPDATE Bookings
-          SET ?
-          WHERE ID = ?
-          `;
+      UPDATE Bookings SET ? WHERE ID = ?
+    `;
       // Run the SQL query with the request body and product id as parameters
       database.query(loginQRY, [req.body, req.params.id], (err) => {
         if (err) {
@@ -399,12 +400,13 @@ class Flights {
         }
       });
     }
+
+
     // Delete an existing product using the product id
-    deleteCart(req, res) {
+    deleteBooking(req, res) {
       const loginQRY = `
-          DELETE FROM Bookings
-          WHERE ID = ?;
-          `;
+      DELETE FROM Bookings WHERE ID = ?
+    `;
       // Run the SQL query with the product id as a parameter
       database.query(loginQRY, [req.params.id], (err) => {
         if (err) res.status(400).json({ err: "The record was not found." });
@@ -424,5 +426,5 @@ module.exports = {
   User,
   Program,
   Flights,
-  Cart
+  Bookings
 };
