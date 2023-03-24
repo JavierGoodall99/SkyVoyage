@@ -7,11 +7,12 @@ const bodyParser = require("body-parser");
 // Create an express router
 const route = express.Router();
 // Import the User, Program, flights models
-const { User, Program, Flights } = require("../model");
+const { User, Program, Flights, Cart } = require("../model");
 // Create instances of the User, Program, flights models
 const user = new User();
 const program = new Program();
 const flights = new Flights();
+const cart = new Cart();
 
 // Set up the route for the homepage
 // This route matches either the root URL or /VolunteerVentures
@@ -95,6 +96,29 @@ route.get("/flights", (req, res) => {
   route.delete("/flight/:id", (req, res) => {
     flights.deleteFlight(req, res);
   });
+
+
+// ----------------------------------------------Bookings---------------------------------------------
+
+route.get("/carts", (req, res) => {
+  flights.retrieveCarts(req, res);
+});
+// Fetch single flights route
+route.get("/cart/:id", (req, res) => {
+  flights.retrieveCart(req, res);
+});
+// Create flights route
+route.post("/cart", bodyParser.json(), (req, res) => {
+  flights.addCart(req, res);
+});
+// Update flights route
+route.put("/cart/:id", bodyParser.json(), (req, res) => {
+  flights.updateCart(req, res);
+});
+// Delete flights route
+route.delete("/cart/:id", (req, res) => {
+  flights.deleteCart(req, res);
+});
 
 
 

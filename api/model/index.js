@@ -335,9 +335,94 @@ class Flights {
   }
 
 
+
+  // -----------------------------------------CART---------------------------------------------------------------
+
+
+
+  class Cart {
+    // Fetch all products
+    retrieveCarts(req, res) {
+      const loginQRY = `SELECT ID, UserID, VolunteerProgramID, FlightID
+          FROM Bookings;`;
+      // Run the SQL query
+      database.query(loginQRY, (err, results) => {
+        if (err) throw err;
+        // Return the query results
+        res.status(200).json({ results: results });
+      });
+    }
+    // Fetch a specific product using the program id
+    retrieveCart(req, res) {
+      const loginQRY = `SELECT ID, UserID, VolunteerProgramID, FlightID
+          FROM Bookings;
+          WHERE ID = ?;`;
+      // Run the SQL query with a parameterized query
+      database.query(loginQRY, [req.params.id], (err, results) => {
+        if (err) throw err;
+        // Return the query results
+        res.status(200).json({ results: results });
+      });
+    }
+    // Add a new program
+    addCart(req, res) {
+      const loginQRY = `
+          INSERT INTO Bookings
+          SET ?;
+          `;
+      // Run the SQL query with the request body as the data
+      database.query(loginQRY, [req.body], (err) => {
+        if (err) {
+          // Return an error if the query fails
+          res.status(400).json({ err: "Unable to insert a new record." });
+        } else {
+          // Return a success message if the query succeeds
+          res.status(200).json({ msg: "Cart saved" });
+        }
+      });
+    }
+    // Update an existing product using the product id
+    updateCart(req, res) {
+      const loginQRY = `
+          UPDATE Bookings
+          SET ?
+          WHERE ID = ?
+          `;
+      // Run the SQL query with the request body and product id as parameters
+      database.query(loginQRY, [req.body, req.params.id], (err) => {
+        if (err) {
+          // Return an error if the query fails
+          res.status(400).json({ err: "Unable to update record." });
+        } else {
+          // Return a success message if the query succeeds
+          res.status(200).json({ msg: "Cart updated" });
+        }
+      });
+    }
+    // Delete an existing product using the product id
+    deleteCart(req, res) {
+      const loginQRY = `
+          DELETE FROM Bookings
+          WHERE ID = ?;
+          `;
+      // Run the SQL query with the product id as a parameter
+      database.query(loginQRY, [req.params.id], (err) => {
+        if (err) res.status(400).json({ err: "The record was not found." });
+        // Return a success message if the query succeeds
+        res.status(200).json({ msg: "A item was deleted." });
+      });
+    }
+  }
+
+
+
+
+
+
 // Export the user and product class
 module.exports = {
   User,
   Program,
   Flights,
+  Cart
 };
