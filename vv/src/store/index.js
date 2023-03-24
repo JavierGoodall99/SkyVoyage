@@ -10,13 +10,20 @@ export default createStore({
     users: [],
     programs: [],
     flights: [],
-    bookedFlights: [],
+    bookedFlight: null,
     
   },
   mutations: {
+    // bookedFlight(state, flight) {
+    //   state.bookedFlight = flight;
+    // },
     bookFlight(state, flight) {
-      state.bookedFlights.push(flight);
+      state.bookedFlight = flight;
     },
+    setBookedFlight(state, flight) {
+      state.bookedFlight = flight;
+    },
+    
     // removeFlight(state, index) {
     //   state.bookedFlights.splice(index, 1);
     // },
@@ -28,6 +35,14 @@ export default createStore({
     },
     setMessage (state, payload) {
       state.message = payload
+    },
+
+// --------------------------Booking----------------------------------
+    setBooking(state, value) {
+      state.booking = value
+    },
+    setBookings(state, values) {
+      state.bookings = values
     },
     // ---------------------User---------------------------------------
     setUsers (state, users) {
@@ -317,6 +332,65 @@ async updateFlight(context, payload) {
       context.commit('setMessage', err.message);
     }
   },
+
+
+
+  // ---------------------------------Bookings----------------------------------------------
+
+
+ 
+  async addBooking(context, payload){
+    try {
+      let statusCode  = null;
+      let message = null;
+
+      await axios.post(`${bStoreURL}user/${payload.ID}/booking`, payload)
+      .then((data)=> {
+        statusCode = data.status
+ 
+        message = data
+      })
+      .then(()=>{
+          console.log('Response: ', statusCode);           
+          context.commit('setMessage', message.data.msg);
+      });
+    }
+    catch(err) {
+      context.commit('setMessage', err);
+    }
+  },
+
+
+  async updateBooking(context, payload){
+    try{
+      let res = await axios.put(`${bStoreURL}user/${payload.ID}/cart/${payload.ID}`, {
+        quantity: payload.quantity
+      });
+      let {msg} = res.data;
+      if (res) {
+        console.log('Message: ', msg);
+        context.commit('setMessage', msg);
+      }
+    }
+    catch(err){
+      console.error(err);
+    }
+  },
+
+  async retrieveBookings(context, payload){
+      try{  
+        const res = await axios.get(`${URL}user/${payload.ID}/bookings`);
+        context.commit('SetBooking', res.data.results);
+      }catch(err){
+        console.error(err);
+      }
+  },
+
+
+
+
+
+
 },
 
   getters: {
@@ -328,9 +402,15 @@ async updateFlight(context, payload) {
     authenticated(state) {
       return state.user !== null;
     },
-    bookedFlights(state) {
-      return state.bookedFlights;
+    flights(state) {
+      return state.flights;
     },
+    bookedFlight(state) {
+      return state.bookedFlight;
+    },
+    // bookedFlights(state) {
+    //   return state.bookedFlights;
+    // },
     totalCost(state) {
       return state.bookedFlights.reduce((total, flight) => {
         return total + flight.price;

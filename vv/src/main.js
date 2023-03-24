@@ -8,7 +8,7 @@ import 'bootstrap/dist/js/bootstrap.js'
 import 'bootstrap'
 import '@glidejs/glide/dist/css/glide.core.min.css';
 import 'sweetalert2/dist/sweetalert2.min.css';
-
+import '@fortawesome/fontawesome-free/css/all.css'
 
 
 

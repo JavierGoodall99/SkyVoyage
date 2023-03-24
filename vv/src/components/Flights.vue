@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   data() {
     return {
@@ -50,15 +52,20 @@ export default {
       selectedArrivalCity: '',
       selectedDepartureDate: '',
       searchedFlights: [],
+      userID: '',
+      flightsID: ''
     };
   },
   computed: {
+    ...mapState(['bookedFlight']),
     // Get the list of flights from the Vuex store
     flights() {
   const flights = this.$store.state.flights;
   console.log('flights:', flights);
   return flights;
 },
+
+
 formatDate() {
     return function(date) {
       const d = new Date(date);
@@ -91,18 +98,37 @@ formatDate() {
   });
   console.log('searchedFlights:', this.searchedFlights);
 },
-    bookFlight(flight) {
+
+bookFlight(flight) {
+  // Format the flight dates
+  flight.DepartureDate = this.formatDate(flight.DepartureDate);
+  flight.ArrivalDate = this.formatDate(flight.ArrivalDate);
+
   // Set the booked flight in the Vuex store
   this.$store.commit('bookFlight', flight);
+
+  // Call the addBooking action to add the booking to the server
+  const bookingPayload = {
+    UserID: this.userID,
+    FlightID: flight.ID, // Update this line
+    Price: flight.Price
+  };
+  this.$store.dispatch('addBooking', bookingPayload);
+
   // Redirect the user to the booking confirmation page
   this.$router.push("/cart");
 }
+
+
+
+
+
   },
+
   created() {
-    // Fetch the list of flights from the Vuex store
     this.$store.dispatch('fetchFlights');
   },
-};
+}
 </script>
 
   

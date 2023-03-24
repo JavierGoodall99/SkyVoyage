@@ -29,7 +29,7 @@
               <div>
                 <button class="submit" :disabled="isLoading">
                   <span v-if="isLoading">
-                    <i class="fa fa-spinner fa-spin"></i> Loading...
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading...
                   </span>
                   <span v-else> Submit </span>
                 </button>

@@ -12,48 +12,53 @@
           </tr>
         </thead>
         <tbody>
-    
-          <tr v-for="flight in bookedFlights" :key="flight.id">
-            <td>{{ flight.DepartureCity }} | ({{ formatDate(flight.DepartureDate) }} {{ flight.DepartureTime }})</td>
-            <td>{{ flight.ArrivalCity }} | ({{ formatDate(flight.ArrivalDate) }} {{ flight.ArrivalTime }})</td>
+          <tr v-for="flight in bookedFlight" :key="flight.id">
+            <td>{{ flight.DepartureCity }}</td>
+            <td>{{ flight.ArrivalCity }}</td>
             <td>{{ flight.Price }}</td>
-            <td>
-              <button @click="removeFlight(flight)">Remove</button>
-            </td>
+            <td>{{ formatDate(flight.DepartureDate) }}</td>
+            <td>{{ formatDate(flight.ArrivalDate) }}</td>
+            <td><button @click="removeFlight(flight)">Remove</button></td>
           </tr>
         </tbody>
       </table>
     </div>
   </body>
 </template>
-  
+
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapState, mapActions } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(['bookedFlights']), // Mapping 'bookedFlights' getter from Vuex store to computed property
+    ...mapState(["bookedFlight"]), // Mapping 'bookedFlight' getter from Vuex store to computed property
     formatDate() {
-    return function(date) {
-      const d = new Date(date);
-      return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-    };
-  },
+      return function (date) {
+        const d = new Date(date);
+        return d.toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        });
+      };
+    },
   },
   // Methods
   methods: {
-    ...mapActions(['removeFlight']), // Mapping 'removeFlight' action from Vuex store to methods
+    ...mapActions(["removeFlight"]), // Mapping 'removeFlight' action from Vuex store to methods
   },
 };
 </script>
 
-
 <style scoped>
 body {
-  background: radial-gradient(circle, rgba(248, 248, 248, 1) 0%, rgb(193, 210, 232) 100%);
-  font-family: 'Black Mango Medium';
+  background: radial-gradient(
+    circle,
+    rgba(248, 248, 248, 1) 0%,
+    rgb(193, 210, 232) 100%
+  );
+  font-family: "Black Mango Medium";
   height: 100vh;
-  
 }
 
 h2 {
@@ -70,7 +75,6 @@ table {
   word-spacing: 5px;
   font-size: 17px;
   line-height: 35px;
-
 }
 
 th,

@@ -144,6 +144,7 @@ h1 {
   justify-content: center;
   gap: 1.5rem;
   padding: 0 2rem;
+  padding-bottom: 100px;
 }
 
 
