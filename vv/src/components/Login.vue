@@ -1,5 +1,6 @@
 <template>
   <body>
+    <h1 class="text-center">Login</h1>
     <div class="container">
       <div class="row">
         <div class="col-md-6 image1"></div>
@@ -98,6 +99,14 @@ body {
   min-height: 100vh;
 }
 
+h1 {
+  margin-bottom: 20px;
+  font-size: 4rem;
+  padding-top: 70px;
+  color: rgb(27, 61, 102);
+  text-align: center;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -192,25 +201,45 @@ span a:hover {
 }
 
 @media only screen and (max-width: 768px) {
-  .image1 {
-    border-radius: 10px 10px 0 0;
-  }
+    h1 {
+        font-size: 2.5rem;
+        padding-top: 50px;
+    }
 
-  .text {
-    position: absolute;
-    top: 70%;
-    text-align: center;
-  }
+    .row {
+        height: auto;
+        border-radius: 0;
+        box-shadow: none;
+        margin-top: 0;
+    }
 
-  .text p,
-  i {
-    font-size: 17px;
-  }
+    .image1 {
+        height: 200px;
+        border-radius: 0;
+    }
 
-  .row {
-    max-width: 420px;
-    width: 100%;
-  }
+    .text {
+        top: 30%;
+    }
+
+    .right {
+        padding: 20px;
+    }
+
+    .input,
+    #userRole {
+        height: 35px;
+        margin-bottom: 10px;
+    }
+
+    .submit {
+        height: 35px;
+        padding: 0 20px;
+    }
+
+    .login {
+        margin-top: 10px;
+    }
 }
 </style>
 

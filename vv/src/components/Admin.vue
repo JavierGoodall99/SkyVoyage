@@ -287,7 +287,8 @@ button:hover {
     text-align: left;
 }
   img {
-  width: 50px;
+  width: 300px;
+  object-fit: contain;
 }
 }
 </style>

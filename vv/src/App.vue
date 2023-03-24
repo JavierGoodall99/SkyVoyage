@@ -1,8 +1,8 @@
 <template>
   <NavBarVue></NavBarVue>
-<body>
+  <div class="container-fluid min-vh-100 p-0">
   <router-view/>
-</body>
+  </div>
 <FooterVue></FooterVue>
 </template>
 

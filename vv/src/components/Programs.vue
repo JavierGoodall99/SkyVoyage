@@ -28,7 +28,7 @@
           <h2>{{ program.Location }}</h2>
           <p>{{ program.ProgramName }}</p>
           <p>{{ program.Period }}</p>
-          <p>{{ program.ProgramDescription }}</p>
+          <!-- <p>{{ program.ProgramDescription }}</p> -->
           <router-link v-if="authenticated" :to="{ name: 'program', params: { id: program.ID } }">
             <button class="view-more-button">View More</button>
           </router-link>
@@ -122,7 +122,9 @@ export default {
 
 .bg {
   background: radial-gradient(circle, rgba(248, 248, 248, 1) 0%, rgb(193, 210, 232)100%);
-
+  letter-spacing: 0.1rem;
+  word-spacing: 0.2rem;
+  line-height: 40px;
 }
 
 h1 {
@@ -154,6 +156,8 @@ h1 {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  background-color: #6e91b3;
+  border: #6e91b3;
 }
 
 
@@ -219,8 +223,23 @@ input {
 }
 
 @media (max-width: 768px) {
+
+  h1{
+    font-size: 3rem;
+  }
   .card {
     margin-bottom: 1.5rem;
+  }
+  .filters {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  label {
+    margin-bottom: 0.5rem;
+  }
+  select, input {
+    margin-bottom: 1rem;
+    width: 100%;
   }
 }
 </style>

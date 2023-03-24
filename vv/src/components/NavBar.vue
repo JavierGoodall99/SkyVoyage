@@ -1,90 +1,95 @@
-<template lang="">
-<nav class="navbar navbar-expand-lg">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      
-      <h2> <img src="https://i.postimg.cc/SxKs9wy0/charity.png" alt="logo" class="logo">Volunteer Ventures</h2>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-            <router-link to="/">Home</router-link> 
-        </li>
-        <li class="nav-item">
-            <router-link to="/about">About</router-link> 
-        </li>
-        <li class="nav-item">
-            <router-link to="/registration">Apply</router-link> 
-        </li>
-        <li class="nav-item">
-            <router-link to="/programs">Volunteer Programs</router-link> 
-        </li>
-        <li class="nav-item">
-            <router-link to="/flights">Flights</router-link> 
-        </li>
-        <li class="nav-item">
-            <router-link to="/cart">Booking</router-link> 
-        </li>
-        <li class="nav-item">
-            <router-link to="/admin">Admin</router-link> 
-        </li>
-      </ul>
+<template>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        
+        <h3> <img src="https://i.postimg.cc/SxKs9wy0/charity.png" alt="logo" class="logo">Volunteer Ventures</h3>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <router-link class="text-white" to="/" active-class="active-link">Home</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="text-white" to="/about" active-class="active-link">About</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="text-white" to="/programs" active-class="active-link">Volunteer Programs</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="text-white" to="/flights" active-class="active-link">Flights</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="text-white" to="/registration" active-class="active-link">Apply</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="text-white" to="/admin" active-class="active-link">Admin</router-link>
+              </li>
+            </ul>
+          </div>
     </div>
-  </div>
-</nav>
-
-</template>
-
-<script>
-export default {
-    
-}
-</script>
-<style scoped>
-
-
-@font-face {
-      font-family: 'Black Mango Medium';
-      src: url('../assets/font/fonts.ttf');
+  </nav>
+  
+  </template>
+  
+  <script>
+  export default {
+      
   }
-.nav-item {
-  font-family: 'Black Mango Medium';
-  /* word-spacing: 1rem; */
-  letter-spacing: 0.1rem;
-  padding: 20px;
-  font-size: larger;
-  font-weight: lighter;
-}
-
-h2{
-  font-family: 'Black Mango Medium';
-}
-
-.logo{
-  width: 4.5rem;
-  padding-right: 15px;
-  filter: brightness(0) invert(1);
-}
-.navbar {
-  background: rgb(27, 61, 102) ;
-/* background: radial-gradient(circle, rgba(248,248,248,1) 0%, rgba(115,173,242,1) 100%); */
-}
-
-.navbar-expand-lg .navbar-nav {
-
-    margin-left: 200px;
-}
-
-nav a {
-  color: white;
+  </script>
+  <style scoped>
+  
+  .active-link {
   text-decoration: none;
-  font-size: medium;
-}
-
-nav a.router-link-exact-active {
-  color: black;
-}
-</style>
+  border-bottom: 2px solid rgb(255, 255, 255); 
+  }
+  
+  /* nav a.router-link-exact-active[data-v-4295d220] {
+      color: rgb(255, 255, 255);
+  } */
+  
+  @font-face {
+        font-family: 'Black Mango Medium';
+        src: url('../assets/font/fonts.ttf');
+    }
+  .nav-item {
+    font-family: 'Black Mango Medium';
+    /* word-spacing: 1rem; */
+    letter-spacing: 0.1rem;
+    padding: 20px;
+    font-size: larger;
+    font-weight: lighter;
+  }
+  
+  h3{
+    font-family: 'Black Mango Medium';
+  }
+  
+  .logo{
+    width: 3.5rem;
+    padding-right: 15px;
+    filter: brightness(0) invert(1);
+  }
+  .navbar {
+    background: rgb(27, 61, 102) ;
+  /* background: radial-gradient(circle, rgba(248,248,248,1) 0%, rgba(115,173,242,1) 100%); */
+  }
+  
+  .navbar-expand-lg .navbar-nav {
+  
+      margin-left: 200px;
+  }
+  
+  nav a {
+    color: white;
+    text-decoration: none;
+    font-size: medium;
+  }
+  
+  nav a.router-link-exact-active {
+    color: black;
+  }
+  </style>
