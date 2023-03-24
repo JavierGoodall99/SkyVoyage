@@ -19,6 +19,15 @@
         </div>
         <div class="col-md-12">
           <button class="search">Search Flights</button>
+
+          <!-- <router-link v-if="authenticated" :to="{ name: 'cart', params: { id: program.ID } }">
+            <button class="search">Search Flights</button>
+          </router-link>
+          <div v-else>
+            <router-link to="/registration"><button class="book-button">Login to search</button></router-link>
+          </div> -->
+
+
         </div>
       </form>
       <div v-if="searchedFlights.length > 0">
@@ -43,6 +52,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
@@ -53,12 +63,15 @@ export default {
     };
   },
   computed: {
+        // Map the 'authenticated' getter from Vuex store to a computed property
+        ...mapGetters(['authenticated']),
     // Get the list of flights from the Vuex store
     flights() {
   const flights = this.$store.state.flights;
   console.log('flights:', flights);
   return flights;
 },
+// Date Format
 formatDate() {
     return function(date) {
       const d = new Date(date);
@@ -101,7 +114,10 @@ formatDate() {
   created() {
     // Fetch the list of flights from the Vuex store
     this.$store.dispatch('fetchFlights');
+       // Check the value of the authenticated getter
+       console.log('authenticated:', this.authenticated);
   },
+  
 };
 </script>
 

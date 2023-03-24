@@ -17,9 +17,9 @@ export default createStore({
     bookFlight(state, flight) {
       state.bookedFlights.push(flight);
     },
-    removeFlight(state, index) {
-      state.bookedFlights.splice(index, 1);
-    },
+    // removeFlight(state, index) {
+    //   state.bookedFlights.splice(index, 1);
+    // },
     setLoading(state, loading) {
       state.loading = loading
     },
@@ -97,12 +97,12 @@ export default createStore({
 
     // ------------------------------------------REGISTER/LOGIN-----------------------------------------------------
     actions: {
-      removeFlight({ commit, state }, flight) {
-        const index = state.bookedFlights.indexOf(flight);
-        if (index !== -1) {
-          commit('removeFlight', index);
-        }
-      },
+      // removeFlight({ commit, state }, flight) {
+      //   const index = state.bookedFlights.indexOf(flight);
+      //   if (index !== -1) {
+      //     commit('removeFlight', index);
+      //   }
+      // },
     async register (context, payload) {
       console.log(payload);
       const res = await axios.post(`${bStoreURL}register`, payload)

@@ -17,13 +17,16 @@
             <router-link to="/about">About</router-link> 
         </li>
         <li class="nav-item">
+            <router-link to="/registration">Apply</router-link> 
+        </li>
+        <li class="nav-item">
             <router-link to="/programs">Volunteer Programs</router-link> 
         </li>
         <li class="nav-item">
             <router-link to="/flights">Flights</router-link> 
         </li>
         <li class="nav-item">
-            <router-link to="/registration">Apply</router-link> 
+            <router-link to="/cart">Booking</router-link> 
         </li>
         <li class="nav-item">
             <router-link to="/admin">Admin</router-link> 
