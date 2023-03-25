@@ -233,10 +233,11 @@ img {
 }
 
 h1 {
-  text-align: center;
-  font-size: 3rem;
-  color: #555;
-  margin: 2rem;
+  margin-bottom: 30px;
+    font-size: 4rem;
+    padding-top: 30px;
+    color: rgb(27, 61, 102);
+    text-align: center;
 }
 
 .table {

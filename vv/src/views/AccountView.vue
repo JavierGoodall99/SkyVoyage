@@ -1,4 +1,5 @@
 <template>
+  <body class="bg">
     <div class="container">
       <div class="info">
         <h2>User Information</h2>
@@ -10,6 +11,7 @@
         <p>User Role : {{ user.userRole }}</p>
       </div>
     </div> 
+  </body>
 </template>
 
 <script>

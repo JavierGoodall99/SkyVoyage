@@ -39,81 +39,11 @@
         </div>
       </div>
     </div>
-  
-  
-      <h2 class="Our">Volunteer Highlights</h2>
-      <div class="glide" id="glide1">
-          <div class="glide__track" data-glide-el="track">
-            <ul class="glide__slides">
-              <img src="https://i.postimg.cc/TwcG9vSQ/pexels-rodnae-productions-6646989.jpg" alt="" class="slide">
-              <img src="https://i.postimg.cc/C5dtqyVR/pexels-max-fischer-5212340.jpg" alt="" class="slide">
-              <img src="https://i.postimg.cc/5ypJcXhD/pexels-ron-lach-8830253.jpg" alt="" class="slide">
-              <img src="https://i.postimg.cc/LsBrdBT8/pexels-rodnae-productions-6647037.jpg" alt="" class="slide">
-              <img src="https://i.postimg.cc/2jXgf54h/pexels-suraphat-nueaon-933605.jpg" alt="" class="slide">
-              <img src="https://i.postimg.cc/JzF14BsL/pexels-ron-lach-9037222.jpg" alt="" class="slide">
-            </ul>
-          </div>
-          <!-- <div class="glide__arrows" data-glide-el="controls">
-            <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
-            <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
-          </div> -->
-        </div>
-  
-        <div class="glide" id="glide2">
-          <div class="glide__track" data-glide-el="track">
-            <ul class="glide__slides">
-              <img src="https://i.postimg.cc/BbTG9Rcz/teacher-helping-kids-class.jpg" alt="" class="slide">
-              <img src="https://i.postimg.cc/NGmtHrqx/environment-volunteer-concept.jpg" alt="" class="slide">
-              <img src="https://i.postimg.cc/gjq1B8GF/hands-plant-young-green-sprout-tree-three-volunteers.jpg" alt="" class="slide">
-              <img src="https://i.postimg.cc/BnvRMjyk/volunteer-collecting-donation-box-from-another-volunteer.jpg" alt="" class="slide">
-              <img src="https://i.postimg.cc/gksfVVM3/volunteers-collecting-trash.jpg" alt="" class="slide">
-              <img src="https://i.postimg.cc/JzF14BsL/pexels-ron-lach-9037222.jpg" alt="" class="slide">
-            </ul>
-          </div>
-          <!-- <div class="glide__arrows" data-glide-el="controls">
-            <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
-            <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
-          </div> -->
-        </div>
-  
     </body>
   </template>
   
   <script>
-   import Glide from '@glidejs/glide'
-    
-    export default {
-      mounted() {
-        new Glide('.glide', {
-          type: 'carousel',
-          startAt: 0,
-          perView: 3,
-          peek: { before: 100, after: 100 },
-          breakpoints: {
-            768: { perView: 2 },
-            576: { perView: 1 },
-          },
-          autoplay: 3000, //  3 second delay
-          animationDuration: 500, // animation duration to 500ms
-          animationTimingFunc: 'ease-out', 
-        }).mount();
-    
-        new Glide('#glide2', {
-          type: 'carousel',
-          startAt: 0,
-          perView: 3,
-          peek: { before: 100, after: 100 },
-          breakpoints: {
-            768: { perView: 2 },
-            576: { perView: 1 },
-          },
-          autoplay: 4000,
-          animationDuration: 500,
-          animationTimingFunc: 'ease-out',
-        }).mount();
-      },
-    };
-    
+ 
   </script>
   
   
@@ -205,47 +135,7 @@
   .slide{
     object-fit: contain;
   }
-  
-  .glide__arrow {
-    margin-top: 50px;
-    margin-bottom: 150px;
-    border-radius: 10px;
-    border: none;
-    padding: 10px;
-    color: rgb(255, 255, 255);
-    font-size: 24px;
-    outline: none;
-    transform: translateY(-50%);
-    transition: color 0.2s ease-in-out;
-    z-index: 1;
-  }
-  
-  .glide__arrow:hover {
-    color: #0f0b5b;
-  }
-  
-  .glide__arrow--left {
-    left: 24px;
-    background-color:  #6e91b3;
-    margin-right: 50px;
-  }
-  
-  .glide__arrow--right {
-    right: 24px;
-    background-color:  #6e91b3;
-  }
-  
-    
-    .glide__slide--active {
-      transform: translateZ(0);
-    }
-    
-    /* .glide__slide:not(.glide__slide--active) {
-      transform: translateZ(-500px);
-      opacity: 0.5;
-    } */
-  
-  
+
   
   /* Responsive layout */
   @media (max-width: 768px) {
