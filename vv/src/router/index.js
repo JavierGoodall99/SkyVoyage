@@ -1,6 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
+import ContactView from '../views/ContactView.vue'
+import FlightView from '../views/FlightsView.vue'
+import RegistrationView from '../views/RegistrationView.vue'
+import LoginView from '../views/LoginView.vue'
+import AccountView from '../views/AccountView.vue'
+import ProgramsView from '../views/ProgramsView.vue'
+import AdminView from '../views/AdminView.vue'
+import CartView from '../views/CartView.vue'
 import ProgramDetails from '../components/ProgramDetails.vue';
 import FlightDetails from '../components/FlightDetails.vue';
 
@@ -19,37 +27,37 @@ const routes = [
   {
     path: '/contact',
     name: 'contact',
-    component: import('../views/ContactView.vue')
+    component: ContactView
   },
   {
     path: '/flights',
     name: 'flights',
-    component: import('../views/FlightsView.vue')
+    component: FlightView
   },
   {
     path: '/registration',
     name: 'registration',
-    component: import('../views/RegistrationView.vue')
+    component: RegistrationView
   },
   {
     path: '/login',
     name: 'login',
-    component: import('../views/LoginView.vue')
+    component: LoginView
   },
   {
     path: '/account',
     name: 'account',
-    component: import('../views/AccountView.vue')
+    component: AccountView
   },
   {
     path: '/programs',
     name: 'programs',
-    component: import('../views/ProgramsView.vue')
+    component: ProgramsView
   },
   {
     path: '/admin',
     name: 'admin',
-    component: import('../views/AdminView.vue')
+    component: AdminView
   },
   {
     path: '/program/:id',
@@ -64,7 +72,7 @@ const routes = [
   {
     path: '/cart',
     name: 'cart',
-    component: import('../views/CartView.vue')
+    component: CartView
   }
 ];
 
