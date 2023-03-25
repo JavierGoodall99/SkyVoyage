@@ -3,7 +3,7 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-5 col-md-6">
-              <h2 class="font-weight-bold text-center  mb-5">Contact Us</h2>
+              <h2 class="font-weight-bold text-center  mb-5 animate__animated animate__zoomIn">Contact Us</h2>
               <div class="card shadow-lg">
               <div class="card-body">
                 <form action="https://formspree.io/f/xpzerlyo" method="post">

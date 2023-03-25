@@ -10,15 +10,13 @@ export default createStore({
     users: [],
     programs: [],
     flights: [],
-    bookedFlight: null,
+    bookedFlights: [],
     
   },
   mutations: {
-    // bookedFlight(state, flight) {
-    //   state.bookedFlight = flight;
-    // },
+
     bookFlight(state, flight) {
-      state.bookedFlight = flight;
+      state.bookedFlights.push(flight);
     },
     setBookedFlight(state, flight) {
       state.bookedFlight = flight;
@@ -413,20 +411,16 @@ async updateFlight(context, payload) {
     flights(state) {
       return state.flights;
     },
-    bookedFlight(state) {
-      return state.bookedFlight;
+    bookedFlights(state) {
+      return state.bookedFlights;
     },
-    // bookedFlights(state) {
-    //   return state.bookedFlights;
-    // },
-    // totalCost(state) {
-    //   return state.bookedFlights.reduce((total, flight) => {
-    //     return total + flight.price;
-    //   }, 0);
-    // },
-    // getProductById: state => id => {
-    //   return state.products.find(product => product.id === id);
-    // }
+    totalCost: state => {
+      let total = 0;
+      for (const flight of state.bookedFlights) {
+        total += flight.Price;
+      }
+      return total;
+    },
   }
   });
 

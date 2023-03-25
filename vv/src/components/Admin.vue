@@ -1,6 +1,6 @@
 <template>
   <div class="body">
-    <h1>Programs</h1>
+    <h1 animate__animated animate__zoomIn>Programs</h1>
     <div v-if="loading">
       <Spinner/>
     </div>

@@ -1,7 +1,7 @@
 <template>
   <body>
     <div class="container">
-      <h1 class="text-center">About Us</h1>
+      <h1 class="text-center animate__animated animate__zoomIn">About Us</h1>
       <div class="row pt-5">
         <div class="col-md-6">
           <img src="https://i.postimg.cc/t4LDW7Hh/team-volunteers-stacking-hands.jpg" alt="Volunteers in action" class="w-100">

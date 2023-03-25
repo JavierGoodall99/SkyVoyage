@@ -1,6 +1,6 @@
 <template>
   <div class="bg">
-    <h1>Programs</h1>
+    <h1 class="text-center animate__animated animate__zoomIn">Programs</h1>
     <div class="filters pb-5">
       <!-- FILTER -->
       <label for="location" class="px-3">Filter by location:</label>

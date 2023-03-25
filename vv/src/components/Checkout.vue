@@ -4,15 +4,15 @@
     <form>
       <div class="form-group">
         <label for="card-number">Card Number:</label>
-        <input type="text" id="card-number" name="card-number">
+        <input type="text" id="card-number" name="card-number" required>
       </div>
       <div class="form-group">
         <label for="expiration-date">Expiration Date:</label>
-        <input type="text" id="expiration-date" name="expiration-date">
+        <input type="text" id="expiration-date" name="expiration-date" required>
       </div>
       <div class="form-group">
         <label for="cvv">CVV:</label>
-        <input type="text" id="cvv" name="cvv">
+        <input type="text" id="cvv" name="cvv" required>
       </div>
       <button type="submit" @click.prevent="purchaseFlight">Purchase Flight</button>
     </form>

@@ -26,6 +26,9 @@
         project, or teach English to children, we have the perfect program for
         you. Thank you for choosing us as your travel partner. We look forward
         to serving you with the utmost elegance and sophistication.
+        <br />
+        <br />
+        Additionally, we want to assure you that we will take care of your accommodation and food needs in a professional and efficient manner. We understand that these are important aspects of your travel experience and we want to ensure that you have a comfortable and enjoyable stay.
       </p>
     </div>
     <div>
@@ -98,7 +101,7 @@ a {
 .description {
   letter-spacing: 5px;
   word-spacing: 5px;
-  font-size: 25px;
+  font-size: 18px;
   line-height: 35px;
   margin-bottom: 20px;
   color: #fefeff;
@@ -114,7 +117,10 @@ body {
 }
 .bg {
   width: 100%;
-  height: 100vh;
+  object-fit: cover;
+      clip-path: inset(0 0 20% 0);
+  /* height: 860px */
+  /* height: 100vh; */
 }
 
 @font-face {
@@ -166,20 +172,15 @@ h3 {
 
 /* ----------------------------------Media Queries */
 
-@media screen and (max-width: 300px) {
-  .im {
-    /* max-width: 100%; */
-    object-fit: cover;
-  }
+/* @media screen and (max-width: 300px) { */
 
   
-  @media only screen and (max-width: 768px) {
-    .bg{
-      background-image: url("https://i.postimg.cc/MG255nZz/Untitled-design.png");
-    background-size: cover;
-    background-position: center;
-    }
-
+@media only screen and (max-width: 600px) {
+  .bg {
+    /* clip-path: inset(0 0 30% 0); */
   }
 }
+
+
+
 </style>

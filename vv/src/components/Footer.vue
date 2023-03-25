@@ -7,7 +7,7 @@
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod euismod nisi, in posuere libero pulvinar eu.</p>
         </div> -->
         <div class="col-md-6">
-          <h4>Contact Us</h4>
+          <h4><i class="fa-solid fa-phone" style="color: #ffffff;"></i>Contact Us</h4>
           <p>125 Main Road <br> Cape Town, South Africa <br> Email: info@volunteerventures.com <br> Phone: (021) 703-7890</p>
         </div>
         <div class="col-md-6">

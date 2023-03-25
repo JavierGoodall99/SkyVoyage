@@ -1,7 +1,7 @@
 <template>
   <body>
     <div>
-      <h2>Flight Booking</h2>
+      <h2 class="text-center animate__animated animate__zoomIn">Flight Booking</h2>
       <form class="flight-form" @submit.prevent="searchFlights">
         <div class="col-md-6 form-group">
           <label for="departure">Departure</label>
@@ -18,7 +18,10 @@
           </select>
         </div>
         <div class="col-md-12">
-          <button class="search">Search Flights</button>
+          <button v-if="authenticated" class="search">Search Flights</button>
+          <div v-else>
+            <router-link to="/registration"><button class="search">Login to Search</button></router-link>
+          </div>
         </div>
       </form>
       <div v-if="searchedFlights.length > 0">
@@ -43,7 +46,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -57,16 +60,20 @@ export default {
     };
   },
   computed: {
-    ...mapState(['bookedFlight', 'flights']),
-    formatDate() {
-      return function(date) {
-        if (!date || isNaN(new Date(date).getTime())) {
-          return 'N/A';
-        }
-        const d = new Date(date);
-        return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-      };
-    },
+        // Map the 'authenticated' getter from Vuex store to a computed property
+        ...mapGetters(['authenticated']),
+    // Get the list of flights from the Vuex store
+    flights() {
+  const flights = this.$store.state.flights;
+  console.log('flights:', flights);
+  return flights;
+},
+formatDate() {
+    return function(date) {
+      const d = new Date(date);
+      return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    };
+  },
     DepartureCities() {
       const DepartureCities = new Set();
       for (const flight of this.flights) {
@@ -92,13 +99,15 @@ export default {
       });
     },
     bookFlight(flight) {
-    this.$store.commit('setBookedFlight', flight);
-    this.$router.push('/cart');
+  // Set the booked flight in the Vuex store
+  this.$store.commit('bookFlight', flight);
+  // Redirect the user to the booking confirmation page
+  this.$router.push("/cart");
+}
   },
-
-  },
-
   created() {
+    console.log('authenticated:', this.authenticated);
+    // Fetch the list of flights from the Vuex store
     this.$store.dispatch('fetchFlights');
   },
 }

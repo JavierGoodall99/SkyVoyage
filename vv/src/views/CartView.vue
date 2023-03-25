@@ -1,50 +1,48 @@
 <template>
   <body>
     <div>
-      <h2>Booking</h2>
+      <h2 class="text-center animate__animated animate__zoomIn">Booking Confirmation</h2>
       <table>
         <thead>
           <tr>
             <th>Departure</th>
             <th>Arrival</th>
             <th>Price</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-if="bookedFlight">
-            <td>{{ bookedFlight.DepartureCity }}</td>
-            <td>{{ bookedFlight.ArrivalCity }}</td>
-            <td>{{ bookedFlight.Price }}</td>
-            <td>{{ formatDate(bookedFlight.DepartureDate) }}</td>
-            <td>{{ formatDate(bookedFlight.ArrivalDate) }}</td>
-            <td><button @click="Checkout(bookedFlight)">CheckOut</button></td>
+          <tr v-for="(flight, index) in bookedFlights" :key="index">
+            <td>{{ flight.DepartureCity }} ({{ formatDate(flight.DepartureDate) }} {{ flight.DepartureTime }})</td>
+            <td>{{ flight.ArrivalCity }} ({{ formatDate(flight.ArrivalDate) }} {{ flight.ArrivalTime }})</td>
+            <td>{{ flight.Price }}</td>
           </tr>
         </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2">Total:</td>
+            <td>{{ totalCost }}</td>
+            <td><button @click="Checkout(flight)">CheckOut</button></td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </body>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+ import { mapGetters, mapActions } from 'vuex';
 
 export default {
   computed: {
-    ...mapState(['bookedFlight']),
-    // ---------------DATE FORMAT---------------------
-    formatDate() {
-      return function(date) {
-        if (!date || isNaN(new Date(date).getTime())) {
-          return 'N/A';
-        }
-        const d = new Date(date);
-        return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-      };
-    },
+    ...mapGetters(['bookedFlights', 'totalCost']),
   },
   methods: {
-  async Checkout() {
+      ...mapActions(['removeFlight']),
+      formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString();
+      },
+      async Checkout() {
     this.$router.push("/checkout");
   }
 }

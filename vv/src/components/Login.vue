@@ -1,6 +1,6 @@
 <template>
   <body>
-    <h1 class="text-center">Login</h1>
+    <h1 class="text-center animate__animated animate__zoomIn">Login</h1>
     <div class="container">
       <div class="row">
         <div class="col-md-6 image1"></div>

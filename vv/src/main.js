@@ -9,7 +9,7 @@ import 'bootstrap'
 // import '@glidejs/glide/dist/css/glide.core.min.css';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import '@fortawesome/fontawesome-free/css/all.css'
-
+import 'animate.css';
 
 
 createApp(App).use(store).use(router).mount('#app')
