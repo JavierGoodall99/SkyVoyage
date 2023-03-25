@@ -23,6 +23,12 @@ export default createStore({
     setBookedFlight(state, flight) {
       state.bookedFlight = flight;
     },
+    addToCart(state, flight) {
+      state.cart.push(flight);
+    },
+    removeFromCart(state, flight) {
+      state.cart = state.cart.filter(f => f !== flight);
+    },
     
     // removeFlight(state, index) {
     //   state.bookedFlights.splice(index, 1);

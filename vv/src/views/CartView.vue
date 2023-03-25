@@ -12,12 +12,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="flight in bookedFlight" :key="flight.id">
-            <td>{{ flight.DepartureCity }}</td>
-            <td>{{ flight.ArrivalCity }}</td>
-            <td>{{ flight.Price }}</td>
-            <td>{{ formatDate(flight.DepartureDate) }}</td>
-            <td>{{ formatDate(flight.ArrivalDate) }}</td>
+          <tr v-if="bookedFlight">
+            <td>{{ bookedFlight.DepartureCity }}</td>
+            <td>{{ bookedFlight.ArrivalCity }}</td>
+            <td>{{ bookedFlight.Price }}</td>
+            <td>{{ formatDate(bookedFlight.DepartureDate) }}</td>
+            <td>{{ formatDate(bookedFlight.ArrivalDate) }}</td>
             <td><button @click="removeFlight(flight)">Remove</button></td>
           </tr>
         </tbody>
@@ -27,25 +27,21 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
   computed: {
-    ...mapState(["bookedFlight"]), // Mapping 'bookedFlight' getter from Vuex store to computed property
+    ...mapState(['bookedFlight']),
+    // ---------------DATE FORMAT---------------------
     formatDate() {
-      return function (date) {
+      return function(date) {
+        if (!date || isNaN(new Date(date).getTime())) {
+          return 'N/A';
+        }
         const d = new Date(date);
-        return d.toLocaleDateString("en-US", {
-          month: "long",
-          day: "numeric",
-          year: "numeric",
-        });
+        return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
       };
     },
-  },
-  // Methods
-  methods: {
-    ...mapActions(["removeFlight"]), // Mapping 'removeFlight' action from Vuex store to methods
   },
 };
 </script>

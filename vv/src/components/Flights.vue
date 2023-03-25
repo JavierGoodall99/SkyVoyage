@@ -24,16 +24,16 @@
       <div v-if="searchedFlights.length > 0">
         <h3>Available Flights</h3>
         <div class="card" v-for="flight in searchedFlights" :key="flight.id">
-        <div class="flight-details">
-          <p class="flight-route">{{ flight.DepartureCity }} to {{ flight.ArrivalCity }}</p>
-          <div class="flight-timings">
-            <p class="departure-time">Departure: {{ formatDate(flight.DepartureDate) }}, <br> Time: {{ flight.DepartureTime }}</p>
-            <p class="arrival-time">Arrival: {{ formatDate(flight.ArrivalDate) }}, <br> Time: {{ flight.ArrivalTime }}</p>
+          <div class="flight-details">
+            <p class="flight-route">{{ flight.DepartureCity }} to {{ flight.ArrivalCity }}</p>
+            <div class="flight-timings">
+              <p class="departure-time">Departure: {{ formatDate(flight.DepartureDate) }}, <br> Time: {{ flight.DepartureTime }}</p>
+              <p class="arrival-time">Arrival: {{ formatDate(flight.ArrivalDate) }}, <br> Time: {{ flight.ArrivalTime }}</p>
+            </div>
+            <p class="flight-price">Price: {{ flight.Price }}</p>
+            <button class="book-button" @click="bookFlight(flight)">Book Now</button>
           </div>
-          <p class="flight-price">Price: {{ flight.Price }}</p>
-          <button class="book-button" @click="bookFlight(user, flight)">Book Now</button>
         </div>
-      </div>
       </div>
     </div>
     <div>
@@ -57,22 +57,16 @@ export default {
     };
   },
   computed: {
-    ...mapState(['bookedFlight']),
-    // Get the list of flights from the Vuex store
-    flights() {
-  const flights = this.$store.state.flights;
-  console.log('flights:', flights);
-  return flights;
-},
-
-
-formatDate() {
-    return function(date) {
-      const d = new Date(date);
-      return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-    };
-  },
-    // Get a list of unique departure cities from the flights
+    ...mapState(['bookedFlight', 'flights']),
+    formatDate() {
+      return function(date) {
+        if (!date || isNaN(new Date(date).getTime())) {
+          return 'N/A';
+        }
+        const d = new Date(date);
+        return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      };
+    },
     DepartureCities() {
       const DepartureCities = new Set();
       for (const flight of this.flights) {
@@ -90,23 +84,18 @@ formatDate() {
   },
   methods: {
     searchFlights() {
-  this.searchedFlights = this.flights.filter(flight => {
-    return (
-      flight.DepartureCity === this.selectedDepartureCity &&
-      flight.ArrivalCity === this.selectedArrivalCity
-    );
-  });
-  console.log('searchedFlights:', this.searchedFlights);
-},
-
-
-
-bookFlight(user, flight) {
-      return this.$store.dispatch("bookFlight", {
-        userID: user?.userID,
-        flightID: flight?.flightID
+      this.searchedFlights = this.flights.filter(flight => {
+        return (
+          flight.DepartureCity === this.selectedDepartureCity &&
+          flight.ArrivalCity === this.selectedArrivalCity
+        );
       });
-    }
+    },
+    bookFlight(flight) {
+    this.$store.commit('setBookedFlight', flight);
+    this.$router.push('/cart');
+  },
+
   },
 
   created() {
