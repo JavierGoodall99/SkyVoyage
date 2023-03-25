@@ -340,7 +340,7 @@ async updateFlight(context, payload) {
 
 
  
-  async addBooking(context, payload){
+  async bookFlight(context, payload){
     try {
       let statusCode  = null;
       let message = null;
@@ -378,13 +378,14 @@ async updateFlight(context, payload) {
     }
   },
 
-  async retrieveBookings(context, payload){
-      try{  
-        const res = await axios.get(`${URL}user/${payload.ID}/bookings`);
-        context.commit('SetBooking', res.data.results);
-      }catch(err){
-        console.error(err);
-      }
+  async retrieveBookings(context) {
+    let currentUser = JSON.parse(localStorage.getItem('user'));
+    try {  
+      const res = await axios.get(`${bStoreURL}user/${currentUser?.ID}/bookings`);
+      context.commit('SetBooking', res.data.results);
+    } catch(err) {
+      console.error(err);
+    }
   },
 
 
@@ -412,11 +413,11 @@ async updateFlight(context, payload) {
     // bookedFlights(state) {
     //   return state.bookedFlights;
     // },
-    totalCost(state) {
-      return state.bookedFlights.reduce((total, flight) => {
-        return total + flight.price;
-      }, 0);
-    },
+    // totalCost(state) {
+    //   return state.bookedFlights.reduce((total, flight) => {
+    //     return total + flight.price;
+    //   }, 0);
+    // },
     // getProductById: state => id => {
     //   return state.products.find(product => product.id === id);
     // }

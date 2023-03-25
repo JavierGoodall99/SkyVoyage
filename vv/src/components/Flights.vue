@@ -31,7 +31,7 @@
             <p class="arrival-time">Arrival: {{ formatDate(flight.ArrivalDate) }}, <br> Time: {{ flight.ArrivalTime }}</p>
           </div>
           <p class="flight-price">Price: {{ flight.Price }}</p>
-          <button class="book-button" @click="bookFlight(flight)">Book Now</button>
+          <button class="book-button" @click="bookFlight(user, flight)">Book Now</button>
         </div>
       </div>
       </div>
@@ -99,26 +99,14 @@ formatDate() {
   console.log('searchedFlights:', this.searchedFlights);
 },
 
-bookFlight(flight) {
-  // Format the flight dates
-  flight.DepartureDate = this.formatDate(flight.DepartureDate);
-  flight.ArrivalDate = this.formatDate(flight.ArrivalDate);
 
-  // Set the booked flight in the Vuex store
-  this.$store.commit('bookFlight', flight);
 
-  // Call the addBooking action to add the booking to the server
-  const bookingPayload = {
-    UserID: this.userID,
-    FlightID: flight.ID, // Update this line
-    Price: flight.Price
-  };
-  this.$store.dispatch('addBooking', bookingPayload);
-
-  // Redirect the user to the booking confirmation page
-  this.$router.push("/cart");
-}
-
+bookFlight(user, flight) {
+      return this.$store.dispatch("bookFlight", {
+        userID: user?.userID,
+        flightID: flight?.flightID
+      });
+    }
   },
 
   created() {
@@ -126,6 +114,11 @@ bookFlight(flight) {
   },
 }
 </script>
+
+
+
+
+
 
   
   <style scoped>

@@ -29,6 +29,9 @@
                 <router-link v-show="user" class="text-white" to="/account" active-class="active-link">Account</router-link>
               </li>
               <li class="nav-item">
+                <router-link class="text-white" to="/cart" active-class="active-link">Cart</router-link>
+              </li>
+              <li class="nav-item">
                 <router-link class="text-white" to="/admin" active-class="active-link">Admin</router-link>
               </li>
             </ul>
