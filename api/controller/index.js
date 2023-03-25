@@ -118,10 +118,6 @@ route.delete("/user/:id/booking", (req, res) => {
   booking.deleteBooking(req, res);
 });
 
-// Delete booking route
-route.delete("/user/:id/booking", (req, res) => {
-  booking.deleteBooking(req, res);
-});
 
 
 
