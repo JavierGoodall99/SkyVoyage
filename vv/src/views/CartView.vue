@@ -18,7 +18,7 @@
             <td>{{ bookedFlight.Price }}</td>
             <td>{{ formatDate(bookedFlight.DepartureDate) }}</td>
             <td>{{ formatDate(bookedFlight.ArrivalDate) }}</td>
-            <td><button @click="removeFlight(flight)">Remove</button></td>
+            <td><button @click="Checkout(bookedFlight)">CheckOut</button></td>
           </tr>
         </tbody>
       </table>
@@ -43,7 +43,12 @@ export default {
       };
     },
   },
-};
+  methods: {
+  async Checkout() {
+    this.$router.push("/checkout");
+  }
+}
+}
 </script>
 
 <style scoped>

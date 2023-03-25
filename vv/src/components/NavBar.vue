@@ -32,6 +32,9 @@
                 <router-link class="text-white" to="/contact" active-class="active-link">Contact</router-link>
               </li>
               <li class="nav-item">
+                <router-link v-show="user"  class="text-white" to="/checkout" active-class="active-link">Checkout</router-link>
+              </li>
+              <li class="nav-item">
                 <router-link class="text-white" to="/admin" active-class="active-link">Admin</router-link>
               </li>
               <li class="nav-item">

@@ -11,6 +11,7 @@ import AdminView from '../views/AdminView.vue'
 import CartView from '../views/CartView.vue'
 import ProgramDetails from '../components/ProgramDetails.vue';
 import FlightDetails from '../components/FlightDetails.vue';
+import CheckOutView from '../views/CheckOutView.vue';
 
 
 const routes = [
@@ -73,6 +74,11 @@ const routes = [
     path: '/cart',
     name: 'cart',
     component: CartView
+  },
+  {
+    path: '/checkout',
+    name: 'checkout',
+    component: CheckOutView
   }
 ];
 
