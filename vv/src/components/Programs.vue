@@ -2,24 +2,25 @@
   <div class="bg">
     <h1>Programs</h1>
     <div class="filters pb-5">
-
       <!-- FILTER -->
       <label for="location" class="px-3">Filter by location:</label>
       <select v-model="selectedLocation">
         <option value="">All Locations</option>
         <option v-for="location in locations" :key="location">{{ location }}</option>
       </select>
-
+      
       <!-- SORT BY -->
       <label for="location" class="px-3">Sort by:</label>
       <button class="sort-button mx-3" @click="toggleSortOrder">Program Name {{ sortOrder }}</button>
-
+      
       <!-- SEARCH -->
       <label for="search" class="px-3">Search:</label>
       <input id="search" v-model="searchQuery" type="text" placeholder="Search programs...">
-
     </div>
-    <div class="card-container">
+    <div v-if="loading">
+      <Spinner></Spinner>
+    </div>
+    <div v-else class="card-container">
       <div class="card" v-for="program in sortedPrograms" :key="program.id">
         <div class="card-img">
           <a :href="program.photoLink" target="_blank"><img :src="program.imgURL" /></a>
@@ -43,9 +44,14 @@
 
 
 <script>
+import Spinner from '../components/Spinner.vue'
 import { mapGetters } from 'vuex';
 
 export default {
+  name: 'Admin',
+  components: {
+    Spinner,
+  },
   computed: {
     // Map the 'authenticated' getter from Vuex store to a computed property
     ...mapGetters(['authenticated']),
@@ -53,6 +59,9 @@ export default {
     // Get the list of programs from the Vuex store
     programs() {
       return this.$store.state.programs;
+    },
+    loading() {
+      return this.$store.state.loading;
     },
 
     // Get a list of unique locations from the programs
@@ -96,11 +105,14 @@ export default {
   },
 
   created() {
-    // Fetch the list of programs from the Vuex store
-    this.$store.dispatch('fetchPrograms');
-    // Check the value of the authenticated getter
-    console.log('authenticated:', this.authenticated);
-  },
+  console.log('authenticated:', this.authenticated);
+  this.$store.commit('setLoading', true); // True will show the spinner
+  this.$store.dispatch('fetchPrograms').then(() => {
+    this.$store.commit('setLoading', false); // False will hide the spinner after the programs are fetched
+    this.loading = false; // Add this line to set loading to false
+  });
+},
+
   methods: {
     // Toggle the sort order between ascending and descending
     toggleSortOrder() {

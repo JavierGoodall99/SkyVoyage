@@ -17,7 +17,7 @@
                 <router-link class="text-white" to="/about" active-class="active-link">About</router-link>
               </li>
               <li class="nav-item">
-                <router-link class="text-white" to="/programs" active-class="active-link">Volunteer Programs</router-link>
+                <router-link class="text-white" to="/programs" active-class="active-link">Programs</router-link>
               </li>
               <li class="nav-item">
                 <router-link class="text-white" to="/flights" active-class="active-link">Flights</router-link>
@@ -26,13 +26,16 @@
                 <router-link class="text-white" to="/registration" active-class="active-link">Apply</router-link>
               </li>
               <li class="nav-item">
-                <router-link v-show="user" class="text-white" to="/account" active-class="active-link">Account</router-link>
-              </li>
-              <li class="nav-item">
                 <router-link class="text-white" to="/cart" active-class="active-link">Cart</router-link>
               </li>
               <li class="nav-item">
+                <router-link class="text-white" to="/contact" active-class="active-link">Contact</router-link>
+              </li>
+              <li class="nav-item">
                 <router-link class="text-white" to="/admin" active-class="active-link">Admin</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link v-show="user" class="text-white" to="/account" active-class="active-link">Account</router-link>
               </li>
             </ul>
           </div>
@@ -79,9 +82,9 @@
     }
   .nav-item {
     font-family: 'Black Mango Medium';
-    /* word-spacing: 1rem; */
+    word-spacing: 1rem;
     letter-spacing: 0.1rem;
-    padding: 20px;
+    padding: 13px;
     font-size: larger;
     font-weight: lighter;
   }
