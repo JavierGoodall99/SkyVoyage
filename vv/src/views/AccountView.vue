@@ -1,66 +1,65 @@
 <template>
-    <div class="bg" v-if="user">
-      <div class="container">
-        <div>
-          <img :src="user.userProfile" alt="" />
-        </div>
-        <div class="info">
-          <h2>User Information</h2>
-          <p>Name : {{ user.FirstName }}</p>
-          <p>Surname : {{ user.LastName }}</p>
-          <p>Email Address : {{ user.Email }}</p>
-          <p>User Role : {{ user.userRole }}</p>
-        </div>
+    <div class="container">
+      <div class="info">
+        <h2>User Information</h2>
+        <p>Name : {{ user.FirstName }}</p>
+        <p>Surname : {{ user.LastName }}</p>
+        <p>PhoneNumber : {{ user.PhoneNumber }}</p>
+        <p>Email : {{ user.Email }}</p>
+        <p>Address : {{ user.Address }}</p>
+        <p>User Role : {{ user.userRole }}</p>
       </div>
-    </div>
-    <div v-else>
-      <p>No user selected</p>
-    </div>
-  </template>
+    </div> 
+</template>
 
 <script>
 export default {
-  name: 'UserProfile',
-
+  name: 'User Account',
   data() {
     return {
-      user: {
-        FirstName: '',
-        LastName: '',
-        PhoneNumber: '',
-        Email: '',
-        UserPassword: '',
-        userRole: '',
-        userProfile: '',
-      }
+      FirstName: '',
+      LastName: '',
+      PhoneNumber: '',
+      Email: '',
+      Address: '',
+      userRole: '',
     }
   },
 
-  methods:{
+  methods: {
     updateUser: function (user) {
-  return this.$store.dispatch("updateUser", {
-    FirstName: user.FirstName,
-    LastName: user.LastName,
-    PhoneNumber: user.PhoneNumber,
-    Email: user.Email,
-    UserPassword: user.UserPassword,
-    userRole: user.userRole,
-  })
-  .then((updatedUser) => {
-    console.log(updatedUser); // check if user data is updated successfully
-    this.user = updatedUser;
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-},
+      return this.$store.dispatch('updateUser', {
+          userID: user.userID,
+          FirstName: user.FirstName,
+          LastName: user.LastName,
+          PhoneNumber: user.PhoneNumber,
+          Email: user.Email,
+          Address: user.Address,
+          UserPassword: user.UserPassword,
+          userRole: user.userRole,
+        })
+        .then((updatedUser) => {
+          console.log(updatedUser);
+          this.user = updatedUser;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+
+  computed: {
+    user: function () {
+      return this.$store.state.user;
+    },
+  },
 
   created() {
-    this.$store.dispatch("retrieveUser", this.$route.params.id)
-  }
-},
-}
+    this.$store.dispatch('retrieveUser');
+  },
+};
 </script>
+
 
 <style scoped>
 .bg {

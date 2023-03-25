@@ -136,6 +136,7 @@ export default createStore({
     const { result, err, msg } = await res.data
     if (result) {
       context.commit('setUser', result)
+      localStorage.setItem("user", JSON.stringify(result))
       context.commit('setMessage', msg)
     } else {
       context.commit('setMessage', err)

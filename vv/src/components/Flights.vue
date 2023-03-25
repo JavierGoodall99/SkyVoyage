@@ -119,10 +119,6 @@ bookFlight(flight) {
   this.$router.push("/cart");
 }
 
-
-
-
-
   },
 
   created() {

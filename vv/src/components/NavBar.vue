@@ -26,7 +26,7 @@
                 <router-link class="text-white" to="/registration" active-class="active-link">Apply</router-link>
               </li>
               <li class="nav-item">
-                <router-link class="text-white" to="/account" active-class="active-link">Account</router-link>
+                <router-link v-show="user" class="text-white" to="/account" active-class="active-link">Account</router-link>
               </li>
               <li class="nav-item">
                 <router-link class="text-white" to="/admin" active-class="active-link">Admin</router-link>
@@ -40,9 +40,25 @@
   
   <script>
   export default {
-      
+      name: 'NavBar',
+      data() {
+          return {
+            FirstName: '',
+            LastName: '',
+            PhoneNumber: '',
+            Email: '',
+            Address: '',
+            userRole: '',
+          }
+      },
+      computed: {
+          user() {
+              return this.$store.state.user
+          },
+      },
   }
   </script>
+
   <style scoped>
   
   .active-link {
